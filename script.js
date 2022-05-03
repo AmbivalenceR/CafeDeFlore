@@ -12,7 +12,7 @@ let inputDegre = document.querySelector(".inputDegre");
 let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
-let divTableauStock = document.querySelector(".divTableauStock");
+let contentStockTable = document.querySelector(".contentStockTable");
 
 // DECLARATION DU TABLEAU DE STOCK
 let arrayStock;
@@ -24,7 +24,8 @@ if (!localStorage.getItem("@stocks")) {
   // Remise au format objet Javascript de mon local Storage
   let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
   arrayStock = lsParsed;
-  showStock();
+  // Lance la fonction affichage du stock
+  // showStock();
 }
 
 /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
@@ -57,6 +58,7 @@ function calculMarge() {
 formulaire.addEventListener("submit", function (e) {
   // annulation du rechargement de la page
   e.preventDefault();
+  console.log(contentStockTable);
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
@@ -66,7 +68,7 @@ formulaire.addEventListener("submit", function (e) {
   let margeGet = formData.get("marge");
   let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
-  let degreeAlcoolGet = formData.get("degreAlcool");
+  let degreAlcoolGet = formData.get("degreAlcool");
 
   //CREATION DE L'OBJET BOISSON
   let boisson;
@@ -77,8 +79,8 @@ formulaire.addEventListener("submit", function (e) {
       prixAchatHtGet,
       prixVenteHtGet,
       margeGet,
-      prixVenteTtcGet
-      // typeBoissonGet
+      prixVenteTtcGet,
+      typeBoissonGet
     );
   } else {
     boisson = new BoissonAlcoolisée(
@@ -88,7 +90,8 @@ formulaire.addEventListener("submit", function (e) {
       prixVenteHtGet,
       margeGet,
       prixVenteTtcGet,
-      degreeAlcoolGet
+      typeBoissonGet,
+      degreAlcoolGet
     );
   }
 
@@ -108,36 +111,42 @@ formulaire.addEventListener("submit", function (e) {
 function showStock(formData) {
   //Création de la fonction showStock avec la méthode forEach()
   //Création de la variable content
-  let contentStock = "";
   arrayStock.forEach(function (element) {
-    divTableauStock.innerHTML = contentStock;
-    //Ajout à la variable content de mon élément
-    // enteteTableau
-    // contentStock.appendChild(enteteTableau);
-    contentStock += `
-    <tr>
-    <td><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
-    <td><input class="modifQuantite inputStock" type="number" value="${element.quantite}"/></td>
-    <td><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
-    <td><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
-    <td><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
-    <td><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>
-    <td><input class="modifType inputStock" type="text" value="${element.type}"/></td>
-    <td><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
-    <td><button class="deleteButton">Supprimer</button></td>
-    <td><button class="modifButton">Modifier</button></td>
-    </tr>`;
-  });
-  divTableauStock.innerHTML = contentStock;
-  // let deleteButtonTableauStock = document.querySelector(".deleteButton");
+    //CREATION DE MES ELEMENTS DU CONTAINER STOCK
+    let tr = document.createElement("tr");
+    let tdNom = document.createElement("td");
+    let tdQuantite = document.createElement("td");
+    let tdPrixAchatHt = document.createElement("td");
+    let tdPrixVenteHt = document.createElement("td");
+    let tdMarge = document.createElement("td");
+    let tdprixVenteTtc = document.createElement("td");
+    let tdType = document.createElement("td");
+    let tdDegreAlcool = document.createElement("td");
 
-  let deleteBtn = document.querySelectorAll(".deleteButton");
-  deleteBtn.forEach(function (element, index) {
-    element.addEventListener("click", function () {
-      arrayStock.splice(index, 1);
-      localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-      showStock();
-    });
+    tdNom.innerHTML = element.nom;
+    tdQuantite.innerHTML = element.quantite;
+    tdPrixAchatHt.innerHTML = element.prixAchatHt;
+    tdPrixVenteHt.innerHTML = element.prixVenteHt;
+    tdMarge.innerHTML = element.prixVenteTtc;
+    tdprixVenteTtc.innerHTML = element.marge;
+    tdType.innerHTML = element.typeBoisson;
+    tdDegreAlcool.innerHTML = element.degreAlcool;
+
+    tr.appendChild(tdNom);
+    tr.appendChild(tdQuantite);
+    tr.appendChild(tdPrixAchatHt);
+    tr.appendChild(tdPrixVenteHt);
+    tr.appendChild(tdMarge);
+    tr.appendChild(tdprixVenteTtc);
+    tr.appendChild(tdType);
+    tr.appendChild(tdDegreAlcool);
+
+    contentStockTable.appendChild(tr);
+
+    let tdButtonSupprimer = document.createElement("button");
+    tdButtonSupprimer.innerText = "Supprimer";
+    tr.appendChild(tdButtonSupprimer);
+    tdButtonSupprimer.className = "tdButton";
   });
 
   let modifNom = document.querySelectorAll(".modifNom");
@@ -269,16 +278,24 @@ function showStock(formData) {
 
 /* CLASSE BOISSON PROTOTYPE */
 class Boisson {
-  constructor(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge) {
+  constructor(
+    nom,
+    quantite,
+    prixAchatHt,
+    prixVenteHt,
+    prixVenteTtc,
+    marge,
+    typeBoisson
+  ) {
     this.nom = nom;
     this.quantite = quantite;
     this.prixAchatHt = prixAchatHt;
     this.prixVenteHt = prixVenteHt;
     this.prixVenteTtc = prixVenteTtc;
     this.marge = marge;
+    this.typeBoisson = typeBoisson;
   }
 }
-// console.log("Boisson type");
 
 // FONCTION CLASSE BOISSON SANS ALCOOL//
 class BoissonSansAlcool extends Boisson {
@@ -291,11 +308,18 @@ class BoissonSansAlcool extends Boisson {
     marge,
     typeBoissonGet
   ) {
-    super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
+    super(
+      nom,
+      quantite,
+      prixAchatHt,
+      prixVenteHt,
+      prixVenteTtc,
+      marge,
+      typeBoissonGet
+    );
     this.type = typeBoissonGet;
   }
 }
-// console.log("Boisson sans alcool");
 
 // FONCTION CLASSE BOISSON ALCOOLISEE//
 class BoissonAlcoolisée extends Boisson {
@@ -309,11 +333,19 @@ class BoissonAlcoolisée extends Boisson {
     typeBoissonGet,
     degreAlcool
   ) {
-    super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
+    super(
+      nom,
+      quantite,
+      prixAchatHt,
+      prixVenteHt,
+      prixVenteTtc,
+      marge,
+      typeBoissonGet,
+      degreAlcool
+    );
     this.type = typeBoissonGet;
     this.degre = degreAlcool;
   }
 }
-// console.log("Boisson alcoolisée");
 
 //GESTION DU BOUTON TYPE DE BOISSON. FAIRE APPARAITRE L'INPUT DEGRE D'ALCOOL SI INPUT ALCOOL CHOISI
