@@ -16,15 +16,24 @@ let divTableauStock = document.querySelector(".divTableauStock");
 
 /* RECUPERATION DU LOCAL STORAGE*/
 // DECLARATION DU TABLEAU DE STOCK
-let arrayStock = [];
+let arrayStock;
 // Remise au format objet Javascript de mon local Storage
-let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
+
 // let localStorageparsed = JSON.parsed(localStorage.getItem("stock"))
-if (!lsParsed) {
+// if (!lsParsed) {
+//   arrayStock = [];
+// } else {
+//   let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
+//   arrayStock = lsParsed;
+//   // Lance la fonction affichage du stock
+//   showStock();
+// }
+
+if (!localStorage.getItem("@stocks")) {
   arrayStock = [];
 } else {
+  let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
   arrayStock = lsParsed;
-  // Lance la fonction affichage du stock
   showStock();
 }
 
@@ -98,8 +107,8 @@ formulaire.addEventListener("submit", function (e) {
   //ENVOI DE L'OBJET CONTACT DANS LE TABLEAU AVEC LA METHODE PUSH
   arrayStock.push(boisson);
   //TRANSFORMATION DE MON TABLEAU EN CHAINE DE CARACTERE */
-  let jsonArrayStock = JSON.stringify(arrayStock);
-  localStorage.setItem("@stocks", jsonArrayStock);
+  // let jsonArrayStock = JSON.stringify(arrayStock);
+  localStorage.setItem("@stocks", JSON.stringify(arrayStock));
   formulaire.reset();
   // APPEL DE LA FONCTION showBoisson
   showStock(formData);
@@ -129,7 +138,19 @@ function showStock(formData) {
     </tr></table>`;
   });
   divTableauStock.innerHTML = contentStock;
-  let deleteButtonTableauStock = document.querySelector(".deleteButton");
+  // let deleteButtonTableauStock = document.querySelector(".deleteButton");
+
+  let deleteBtn = document.querySelectorAll(".deleteButton");
+  console.log(deleteBtn);
+  deleteBtn.forEach(function (element, index) {
+    element.addEventListener("click", function () {
+      alert("click");
+      arrayStock.splice(index, 1);
+      localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+      showStock();
+      // console.log("@stocks");
+    });
+  });
 }
 
 /* CLASSE BOISSON PROTOTYPE */
@@ -143,7 +164,7 @@ class Boisson {
     this.marge = marge;
   }
 }
-console.log("Boisson type");
+// console.log("Boisson type");
 
 // FONCTION CLASSE BOISSON SANS ALCOOL//
 class BoissonSansAlcool extends Boisson {
@@ -160,7 +181,7 @@ class BoissonSansAlcool extends Boisson {
     this.type = typeBoissonGet;
   }
 }
-console.log("Boisson sans alcool");
+// console.log("Boisson sans alcool");
 
 // FONCTION CLASSE BOISSON ALCOOLISEE//
 class BoissonAlcoolisée extends Boisson {
@@ -179,6 +200,6 @@ class BoissonAlcoolisée extends Boisson {
     this.degre = degreAlcool;
   }
 }
-console.log("Boisson alcoolisée");
+// console.log("Boisson alcoolisée");
 
 //GESTION DU BOUTON TYPE DE BOISSON. FAIRE APPARAITRE L'INPUT DEGRE D'ALCOOL SI INPUT ALCOOL CHOISI
