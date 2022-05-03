@@ -74,17 +74,20 @@ table button {
 }
 
 table button:hover {
-  background-color: rgb(170, 168, 168);
-  color: white;
+  border: 2px solid black;
+  background-color: rgba(170, 168, 168, 0.4);
+  color: black;
   cursor: pointer;
 }
 
-table td:hover {
-  background-color: rgb(170, 168, 168);
-  color: white;
+table td:hover,
+button:hover {
+  border: 2px solid black;
   cursor: pointer;
 }
 
 .inputStock {
-  width: 60%;
+  width: 80%;
+  border: none;
+  padding: 0;
 }

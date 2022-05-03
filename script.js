@@ -25,7 +25,7 @@ if (!localStorage.getItem("@stocks")) {
   let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
   arrayStock = lsParsed;
   // Lance la fonction affichage du stock
-  // showStock();
+  showStock();
 }
 
 /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
@@ -123,14 +123,14 @@ function showStock(formData) {
     let tdType = document.createElement("td");
     let tdDegreAlcool = document.createElement("td");
 
-    tdNom.innerHTML = element.nom;
-    tdQuantite.innerHTML = element.quantite;
-    tdPrixAchatHt.innerHTML = element.prixAchatHt;
-    tdPrixVenteHt.innerHTML = element.prixVenteHt;
-    tdMarge.innerHTML = element.prixVenteTtc;
+    tdNom.innerHTML = `<input class="modifNom inputStock" type="text" value="${element.nom}"/>`;
+    tdQuantite.innerHTML = `<input class="modifQuantite inputStock" type="number" value="${element.quantite}"/>`;
+    tdPrixAchatHt.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.prixAchatHt}"/>`;
+    tdPrixVenteHt.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.prixVenteHt}"/>`;
+    tdMarge.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.prixVenteTtc}"/>`;
     tdprixVenteTtc.innerHTML = element.marge;
-    tdType.innerHTML = element.typeBoisson;
-    tdDegreAlcool.innerHTML = element.degreAlcool;
+    tdType.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.typeBoisson}"/>`;
+    tdDegreAlcool.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.degreAlcool}"/>`;
 
     tr.appendChild(tdNom);
     tr.appendChild(tdQuantite);
