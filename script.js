@@ -143,10 +143,19 @@ function showStock(formData) {
 
     contentStockTable.appendChild(tr);
 
-    let tdButtonSupprimer = document.createElement("button");
-    tdButtonSupprimer.innerText = "Supprimer";
-    tr.appendChild(tdButtonSupprimer);
-    tdButtonSupprimer.className = "tdButton";
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = "Supprimer";
+    tr.appendChild(deleteButton);
+    deleteButton.classList.add("deleteButton");
+
+    let deleteBtn = document.querySelectorAll(".deleteButton");
+    deleteBtn.forEach(function (element, index) {
+      element.addEventListener("click", function () {
+        arrayStock.splice(index, 1);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      });
+    });
   });
 
   let modifNom = document.querySelectorAll(".modifNom");
