@@ -125,12 +125,12 @@ function showStock(formData) {
 
     tdNom.innerHTML = `<input class="modifNom inputStock" type="text" value="${element.nom}"/>`;
     tdQuantite.innerHTML = `<input class="modifQuantite inputStock" type="number" value="${element.quantite}"/>`;
-    tdPrixAchatHt.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.prixAchatHt}"/>`;
-    tdPrixVenteHt.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.prixVenteHt}"/>`;
-    tdMarge.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.prixVenteTtc}"/>`;
-    tdprixVenteTtc.innerHTML = element.marge;
-    tdType.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.typeBoisson}"/>`;
-    tdDegreAlcool.innerHTML = `<input class="modifQuantite inputStock" type="text" value="${element.degreAlcool}"/>`;
+    tdPrixAchatHt.innerHTML = `<input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/>`;
+    tdPrixVenteHt.innerHTML = `<input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/>`;
+    tdprixVenteTtc.innerHTML = `<input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/>`;
+    tdMarge.innerHTML = element.marge;
+    tdType.innerHTML = `<input class="modifType inputStock" type="text" value="${element.typeBoisson}"/>`;
+    tdDegreAlcool.innerHTML = `<input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/>`;
 
     tr.appendChild(tdNom);
     tr.appendChild(tdQuantite);
@@ -152,6 +152,7 @@ function showStock(formData) {
     deleteBtn.forEach(function (element, index) {
       element.addEventListener("click", function () {
         arrayStock.splice(index, 1);
+        tr.remove();
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
         showStock();
       });
@@ -160,15 +161,17 @@ function showStock(formData) {
 
   let modifNom = document.querySelectorAll(".modifNom");
   console.log(modifNom);
-  modifNom.forEach(function (element, index) {
-    element.addEventListener("keydown", function (e) {
+  modifNom.forEach(function (element, index, tdNom, tr) {
+    element.addEventListener("click", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
         arrayStock[index].nom = element.value;
-        let indexE = arrayStock[index.element];
+        let indexE = arrayStock[index].nom;
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdNom.innerHTML = `<input class="modifNom inputStock" type="text" value="${element}"/>`;
+        tr.appendChild(tdNom);
         showStock();
       } else {
         false;
@@ -178,7 +181,7 @@ function showStock(formData) {
 
   let modifQuantite = document.querySelectorAll(".modifQuantite");
   console.log(modifQuantite);
-  modifQuantite.forEach(function (element, index) {
+  modifQuantite.forEach(function (element, index, tdQuantite, tr) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
@@ -187,6 +190,8 @@ function showStock(formData) {
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdQuantite.innerHTML = `<input class="modifQuantite inputStock" type="number" value="${element}"/>`;
+        tr.appendChild(tdQuantite);
         showStock();
       } else {
         false;
@@ -196,7 +201,7 @@ function showStock(formData) {
 
   let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
   console.log(modifPrixAchatHT);
-  modifPrixAchatHT.forEach(function (element, index) {
+  modifPrixAchatHT.forEach(function (element, index, tdPrixAchatHt, tr) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
@@ -205,6 +210,8 @@ function showStock(formData) {
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdPrixAchatHt.innerHTML = `<input class="modifPrixAchatHT inputStock" type="text" value="${element}"/>`;
+        tr.appendChild(tdPrixAchatHt);
         showStock();
       } else {
         false;
@@ -214,7 +221,7 @@ function showStock(formData) {
 
   let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
   console.log(modifPrixVenteHT);
-  modifPrixVenteHT.forEach(function (element, index) {
+  modifPrixVenteHT.forEach(function (element, index, tdPrixVenteHt, tr) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
@@ -223,6 +230,8 @@ function showStock(formData) {
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdPrixVenteHt.innerHTML = `<input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/>`;
+        tr.appendChild(tdPrixVenteHt);
         showStock();
       } else {
         false;
@@ -232,7 +241,7 @@ function showStock(formData) {
 
   let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
   console.log(modifPrixVenteTTC);
-  modifPrixVenteTTC.forEach(function (element, index) {
+  modifPrixVenteTTC.forEach(function (element, index, tdprixVenteTtc, tr) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
@@ -241,6 +250,8 @@ function showStock(formData) {
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdprixVenteTtc.innerHTML = `<input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/>`;
+        tr.appendChild(tdprixVenteTtc);
         showStock();
       } else {
         false;
@@ -250,7 +261,7 @@ function showStock(formData) {
 
   let modifType = document.querySelectorAll(".modifType");
   console.log(modifType);
-  modifType.forEach(function (element, index) {
+  modifType.forEach(function (element, index, tdType, tr) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
@@ -259,6 +270,8 @@ function showStock(formData) {
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdType.innerHTML = `<input class="modifType inputStock" type="text" value="${element.typeBoisson}"/>`;
+        tr.appendChild(tdType);
         showStock();
       } else {
         false;
@@ -268,7 +281,7 @@ function showStock(formData) {
 
   let modifDegre = document.querySelectorAll(".modifDegre");
   console.log(modifDegre);
-  modifDegre.forEach(function (element, index) {
+  modifDegre.forEach(function (element, index, tdDegreAlcool, tr) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
         console.log(element.value);
@@ -277,6 +290,8 @@ function showStock(formData) {
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        tdDegreAlcool.innerHTML = `<input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/>`;
+        tr.appendChild(tdDegreAlcool);
         showStock();
       } else {
         false;
