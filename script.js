@@ -11,7 +11,7 @@ let inputDegre = document.querySelector(".inputDegre");
 let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
-let enteteTableau = document.querySelector(".enteteTableau");
+let contentStockTable = document.querySelector(".contentStockTable");
 
 /* RECUPERATION DU LOCAL STORAGE*/
 // DECLARATION DU TABLEAU DE STOCK
@@ -24,7 +24,7 @@ if (!lsParsed) {
 } else {
   arrayStock = lsParsed;
   // Lance la fonction affichage du stock
-  showStock();
+  // showStock();
 }
 
 /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
@@ -57,6 +57,7 @@ function calculMarge() {
 formulaire.addEventListener("submit", function (e) {
   // annulation du rechargement de la page
   e.preventDefault();
+  console.log(contentStockTable);
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
@@ -67,8 +68,6 @@ formulaire.addEventListener("submit", function (e) {
   let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
   let degreAlcoolGet = formData.get("degreAlcool");
-  console.log(quantiteGet);
-  console.log(typeBoissonGet);
 
   //CREATION DE L'OBJET BOISSON
   let boisson;
@@ -108,27 +107,43 @@ formulaire.addEventListener("submit", function (e) {
 function showStock(formData) {
   //Création de la fonction showStock avec la méthode forEach()
   //Création de la variable content
-  let contentStock = "";
   arrayStock.forEach(function (element) {
-    //Ajout à la variable content de mon élément
+    //CREATION DE MES ELEMENTS DU CONTAINER STOCK
+    let tr = document.createElement("tr");
+    let tdNom = document.createElement("td");
+    let tdQuantite = document.createElement("td");
+    let tdPrixAchatHt = document.createElement("td");
+    let tdPrixVenteHt = document.createElement("td");
+    let tdMarge = document.createElement("td");
+    let tdprixVenteTtc = document.createElement("td");
+    let tdType = document.createElement("td");
+    let tdDegreAlcool = document.createElement("td");
 
-    contentStock += `<table>
-    <tr>
-    <td>${element.nom}</td>
-    <td>${element.quantite}</td>
-    <td>${element.prixAchatHt}</td>
-    <td>${element.prixVenteHt}</td>
-    <td>${element.prixVenteTtc}</td>
-    <td>${element.marge}</td>
-    <td>${element.type}</td>
-    <td>${element.degreAlcool}</td>
-    <td><button
-    class="deleteButton">Supprimer</button></td>
-    <td><button class="modifButton">Modifier</button></td>
-    </tr></table>`;
+    tdNom.innerHTML = element.nom;
+    tdQuantite.innerHTML = element.quantite;
+    tdPrixAchatHt.innerHTML = element.prixAchatHt;
+    tdPrixVenteHt.innerHTML = element.prixVenteHt;
+    tdMarge.innerHTML = element.prixVenteTtc;
+    tdprixVenteTtc.innerHTML = element.marge;
+    tdType.innerHTML = element.typeBoisson;
+    tdDegreAlcool.innerHTML = element.degreAlcool;
+
+    tr.appendChild(tdNom);
+    tr.appendChild(tdQuantite);
+    tr.appendChild(tdPrixAchatHt);
+    tr.appendChild(tdPrixVenteHt);
+    tr.appendChild(tdMarge);
+    tr.appendChild(tdprixVenteTtc);
+    tr.appendChild(tdType);
+    tr.appendChild(tdDegreAlcool);
+
+    contentStockTable.appendChild(tr);
+
+    let tdButtonSupprimer = document.createElement("button");
+    tdButtonSupprimer.innerText = "Supprimer";
+    tr.appendChild(tdButtonSupprimer);
+    tdButtonSupprimer.className = "tdButton";
   });
-  enteteTableau.innerHTML = contentStock;
-  let deleteButtonTableauStock = document.querySelector(".deleteButton");
 }
 
 /* CLASSE BOISSON PROTOTYPE */
