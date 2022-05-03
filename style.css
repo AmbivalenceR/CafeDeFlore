@@ -40,8 +40,7 @@ input {
   font-weight: bold;
 }
 
-/* TABLEAU STOCK */
-table {
+.container {
   display: flex;
   justify-content: center;
 }
@@ -60,4 +59,11 @@ th {
   text-align: center;
   border: none;
   padding: 2px 2px;
+}
+
+.inputStock {
+  width: 80%;
+  border: none;
+  background-color: none !important;
+  padding: 0;
 }
