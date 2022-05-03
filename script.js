@@ -11,7 +11,7 @@ let inputDegre = document.querySelector(".inputDegre");
 let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
-let divTableauStock = document.querySelector(".divTableauStock");
+let enteteTableau = document.querySelector(".enteteTableau");
 
 /* RECUPERATION DU LOCAL STORAGE*/
 // DECLARATION DU TABLEAU DE STOCK
@@ -60,13 +60,13 @@ formulaire.addEventListener("submit", function (e) {
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
-  let quantiteGet = formData.get("quantite").value;
+  let quantiteGet = formData.get("quantite");
   let prixAchatHtGet = formData.get("prixAchatHt");
   let prixVenteHtGet = formData.get("prixVenteHt");
   let margeGet = formData.get("marge");
   let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
-  let degreeAlcoolGet = formData.get("degreeAlcool");
+  let degreAlcoolGet = formData.get("degreAlcool");
   console.log(quantiteGet);
   console.log(typeBoissonGet);
 
@@ -79,8 +79,8 @@ formulaire.addEventListener("submit", function (e) {
       prixAchatHtGet,
       prixVenteHtGet,
       margeGet,
-      prixVenteTtcGet
-      // typeBoissonGet
+      prixVenteTtcGet,
+      typeBoissonGet
     );
   } else {
     boisson = new BoissonAlcoolisée(
@@ -90,7 +90,8 @@ formulaire.addEventListener("submit", function (e) {
       prixVenteHtGet,
       margeGet,
       prixVenteTtcGet,
-      degreeAlcoolGet
+      typeBoissonGet,
+      degreAlcoolGet
     );
   }
 
@@ -109,10 +110,8 @@ function showStock(formData) {
   //Création de la variable content
   let contentStock = "";
   arrayStock.forEach(function (element) {
-    divTableauStock.innerHTML = contentStock;
     //Ajout à la variable content de mon élément
-    // enteteTableau
-    // contentStock.appendChild(enteteTableau);
+
     contentStock += `<table>
     <tr>
     <td>${element.nom}</td>
@@ -123,26 +122,35 @@ function showStock(formData) {
     <td>${element.marge}</td>
     <td>${element.type}</td>
     <td>${element.degreAlcool}</td>
-    <td><button class="deleteButton">Supprimer</button></td>
+    <td><button
+    class="deleteButton">Supprimer</button></td>
     <td><button class="modifButton">Modifier</button></td>
     </tr></table>`;
   });
-  divTableauStock.innerHTML = contentStock;
+  enteteTableau.innerHTML = contentStock;
   let deleteButtonTableauStock = document.querySelector(".deleteButton");
 }
 
 /* CLASSE BOISSON PROTOTYPE */
 class Boisson {
-  constructor(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge) {
+  constructor(
+    nom,
+    quantite,
+    prixAchatHt,
+    prixVenteHt,
+    prixVenteTtc,
+    marge,
+    typeBoisson
+  ) {
     this.nom = nom;
     this.quantite = quantite;
     this.prixAchatHt = prixAchatHt;
     this.prixVenteHt = prixVenteHt;
     this.prixVenteTtc = prixVenteTtc;
     this.marge = marge;
+    this.typeBoisson = typeBoisson;
   }
 }
-console.log("Boisson type");
 
 // FONCTION CLASSE BOISSON SANS ALCOOL//
 class BoissonSansAlcool extends Boisson {
@@ -155,11 +163,18 @@ class BoissonSansAlcool extends Boisson {
     marge,
     typeBoissonGet
   ) {
-    super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
+    super(
+      nom,
+      quantite,
+      prixAchatHt,
+      prixVenteHt,
+      prixVenteTtc,
+      marge,
+      typeBoissonGet
+    );
     this.type = typeBoissonGet;
   }
 }
-console.log("Boisson sans alcool");
 
 // FONCTION CLASSE BOISSON ALCOOLISEE//
 class BoissonAlcoolisée extends Boisson {
@@ -173,11 +188,19 @@ class BoissonAlcoolisée extends Boisson {
     typeBoissonGet,
     degreAlcool
   ) {
-    super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
+    super(
+      nom,
+      quantite,
+      prixAchatHt,
+      prixVenteHt,
+      prixVenteTtc,
+      marge,
+      typeBoissonGet,
+      degreAlcool
+    );
     this.type = typeBoissonGet;
     this.degre = degreAlcool;
   }
 }
-console.log("Boisson alcoolisée");
 
 //GESTION DU BOUTON TYPE DE BOISSON. FAIRE APPARAITRE L'INPUT DEGRE D'ALCOOL SI INPUT ALCOOL CHOISI
