@@ -50,9 +50,6 @@ let inputValeurPrixVenteHt = Number(
 //     document.getElementById("marge").value = inputMarge;
 //   }
 // }
-
-
-
 /* DECLENCHEMENT DU CALCUL PRIX DE VENTE TTC SELON LE TYPE DE BOISSON CHOISI */
 
 /* DECLENCHEMENT DE L'EVENT AU SUBMIT */
@@ -70,7 +67,9 @@ formulaire.addEventListener("submit", function (e) {
   let typeBoissonGet = formData.get("typeBoisson");
   let degreeAlcoolGet = formData.get("degreAlcool");
 
-
+  // Calcul Marge HT
+  let margeHt = Number(prixVenteHtGet) - Number(prixAchatHtGet);
+  console.log("voilà la marge",margeHt)
 
   //CREATION DE L'OBJET BOISSON
   let boisson;
@@ -86,7 +85,7 @@ console.log(ttcSansAlcool);
       prixAchatHtGet,
       prixVenteHtGet,
       ttcSansAlcool,
-      margeGet,
+      margeHt,
     );
   } else {
     
@@ -99,8 +98,7 @@ console.log(ttcAlcool);
       prixAchatHtGet,
       prixVenteHtGet,
       ttcAlcool,
-      margeGet,
-      
+      margeHt,
       degreeAlcoolGet,
     );
   }
