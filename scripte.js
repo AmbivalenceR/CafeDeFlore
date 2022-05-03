@@ -1,11 +1,12 @@
 /* DECLARATION DES SELECTEURS (QUERY SELECTORS) */
 // RECUPERATION DES ELEMENTS INPUTS
 let formulaire = document.querySelector("#formulaire");
-let InputNomBoisson = document.querySelector(".InputNomBoisson");
+let InputNomBoisson = document.querySelector(".inputNomBoisson");
 let inputtQuantite = document.querySelector(".inputQuantite");
 let inputPrixAchatHt = document.querySelector(".inputPrixAchatHt");
 let inputPrixVenteHt = document.querySelector(".inputPrixVenteHt");
 let inputMarge = document.querySelector(".inputMarge");
+let inputPrixVenteTtc = document.querySelector(".inputPrixVenteTtc");
 let inputTypeBoisson = document.querySelector(".inputTypeBoisson");
 let inputDegre = document.querySelector(".inputDegre");
 let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
