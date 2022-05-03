@@ -61,3 +61,7 @@ th {
   border: none;
   padding: 2px 2px;
 }
+
+.inputStock {
+  width: 60%;
+}

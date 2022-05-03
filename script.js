@@ -102,6 +102,9 @@ formulaire.addEventListener("submit", function (e) {
   showStock(formData);
 });
 
+// arrayStock[index].nomDeLaValeur = NewValeurInput
+// recreer un nouveau local storage
+
 function showStock(formData) {
   //Création de la fonction showStock avec la méthode forEach()
   //Création de la variable content
@@ -111,31 +114,155 @@ function showStock(formData) {
     //Ajout à la variable content de mon élément
     // enteteTableau
     // contentStock.appendChild(enteteTableau);
-    contentStock += `<table>
+    contentStock += `
     <tr>
-    <td>${element.nom}</td>
-    <td>${element.quantite}</td>
-    <td>${element.prixAchatHt}</td>
-    <td>${element.prixVenteHt}</td>
-    <td>${element.prixVenteTtc}</td>
-    <td>${element.marge}</td>
-    <td>${element.type}</td>
-    <td>${element.degreAlcool}</td>
+    <td><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
+    <td><input class="modifQuantite inputStock" type="number" value="${element.quantite}"/></td>
+    <td><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
+    <td><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
+    <td><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
+    <td><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>
+    <td><input class="modifType inputStock" type="text" value="${element.type}"/></td>
+    <td><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
     <td><button class="deleteButton">Supprimer</button></td>
     <td><button class="modifButton">Modifier</button></td>
-    </tr></table>`;
+    </tr>`;
   });
   divTableauStock.innerHTML = contentStock;
   // let deleteButtonTableauStock = document.querySelector(".deleteButton");
 
   let deleteBtn = document.querySelectorAll(".deleteButton");
-  console.log(deleteBtn);
   deleteBtn.forEach(function (element, index) {
     element.addEventListener("click", function () {
-      alert("click");
       arrayStock.splice(index, 1);
       localStorage.setItem("@stocks", JSON.stringify(arrayStock));
       showStock();
+    });
+  });
+
+  let modifNom = document.querySelectorAll(".modifNom");
+  console.log(modifNom);
+  modifNom.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].nom = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
+    });
+  });
+
+  let modifQuantite = document.querySelectorAll(".modifQuantite");
+  console.log(modifQuantite);
+  modifQuantite.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].quantite = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
+    });
+  });
+
+  let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+  console.log(modifPrixAchatHT);
+  modifPrixAchatHT.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].prixAchatHt = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
+    });
+  });
+
+  let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
+  console.log(modifPrixVenteHT);
+  modifPrixVenteHT.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].prixVenteHt = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
+    });
+  });
+
+  let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
+  console.log(modifPrixVenteTTC);
+  modifPrixVenteTTC.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].prixVenteTtc = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
+    });
+  });
+
+  let modifType = document.querySelectorAll(".modifType");
+  console.log(modifType);
+  modifType.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].type = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
+    });
+  });
+
+  let modifDegre = document.querySelectorAll(".modifDegre");
+  console.log(modifDegre);
+  modifDegre.forEach(function (element, index) {
+    element.addEventListener("keydown", function (e) {
+      if (e.key == "Enter") {
+        console.log(element.value);
+        arrayStock[index].degre = element.value;
+        let indexE = arrayStock[index.element];
+        console.log(indexE + " element modifié du tableau");
+        console.log(arrayStock);
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+        showStock();
+      } else {
+        false;
+      }
     });
   });
 }
