@@ -14,18 +14,17 @@ let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
 let divTableauStock = document.querySelector(".divTableauStock");
 
-/* RECUPERATION DU LOCAL STORAGE*/
 // DECLARATION DU TABLEAU DE STOCK
-let arrayStock = [];
-// Remise au format objet Javascript de mon local Storage
-let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
-// let localStorageparsed = JSON.parsed(localStorage.getItem("stock"))
-if (!lsParsed) {
+let arrayStock;
+
+/* RECUPERATION DU LOCAL STORAGE*/
+if (!localStorage.getItem("@stocks")) {
   arrayStock = [];
 } else {
+  // Remise au format objet Javascript de mon local Storage
+  let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
   arrayStock = lsParsed;
-  // Lance la fonction affichage du stock
-  showStock();
+  //showStock();
 }
 
 /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
@@ -45,12 +44,14 @@ let inputValeurPrixVenteHt = Number(
   document.querySelector(".inputPrixVenteHt").value
 );
 
-function calculMarge() {
-  if (inputValeurPrixAchatHt != "" && inputValeurPrixVenteHt != "") {
-    inputMarge = Number(inputValeurPrixVenteHt - inputValeurPrixAchatHt);
-    document.getElementById("marge").value = inputMarge;
-  }
-}
+// function calculMarge() {
+//   if (inputValeurPrixAchatHt != "" && inputValeurPrixVenteHt != "") {
+//     inputMarge = Number(inputValeurPrixVenteHt - inputValeurPrixAchatHt);
+//     document.getElementById("marge").value = inputMarge;
+//   }
+// }
+
+
 
 /* DECLENCHEMENT DU CALCUL PRIX DE VENTE TTC SELON LE TYPE DE BOISSON CHOISI */
 
@@ -61,45 +62,54 @@ formulaire.addEventListener("submit", function (e) {
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
-  let quantiteGet = formData.get("quantite").value;
+  let quantiteGet = formData.get("quantite");
   let prixAchatHtGet = formData.get("prixAchatHt");
   let prixVenteHtGet = formData.get("prixVenteHt");
   let margeGet = formData.get("marge");
   let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
-  let degreeAlcoolGet = formData.get("degreeAlcool");
-  console.log(quantiteGet);
-  console.log(typeBoissonGet);
+  let degreeAlcoolGet = formData.get("degreAlcool");
+
+
 
   //CREATION DE L'OBJET BOISSON
   let boisson;
-  if (typeBoissonGet == "BoissonSansAlcool") {
-    contact = new BoissonSansAlcool(
+  if (typeBoissonGet == "boissonSansAlcool") {
+
+// Calcul TTC Sans Alcool TVA 5.5%
+
+let ttcSansAlcool = Number(prixVenteHtGet) * 1.055
+console.log(ttcSansAlcool);
+    boisson = new BoissonSansAlcool(
       nomBoissonGet,
       quantiteGet,
       prixAchatHtGet,
       prixVenteHtGet,
+      ttcSansAlcool,
       margeGet,
-      prixVenteTtcGet
-      // typeBoissonGet
     );
   } else {
+    
+// Calcul TTC Alcool TVA 10%
+let ttcAlcool = Number(prixVenteHtGet) * 1.1
+console.log(ttcAlcool);
     boisson = new BoissonAlcoolisée(
       nomBoissonGet,
       quantiteGet,
       prixAchatHtGet,
       prixVenteHtGet,
+      ttcAlcool,
       margeGet,
-      prixVenteTtcGet,
-      degreeAlcoolGet
+      
+      degreeAlcoolGet,
     );
   }
-
+  console.log(boisson);
   //ENVOI DE L'OBJET CONTACT DANS LE TABLEAU AVEC LA METHODE PUSH
   arrayStock.push(boisson);
   //TRANSFORMATION DE MON TABLEAU EN CHAINE DE CARACTERE */
-  let jsonArrayStock = JSON.stringify(arrayStock);
-  localStorage.setItem("@stocks", jsonArrayStock);
+  // let jsonArrayStock = JSON.stringify(arrayStock);
+  localStorage.setItem("@stocks", JSON.stringify(arrayStock));
   formulaire.reset();
   // APPEL DE LA FONCTION showBoisson
   showStock(formData);
@@ -110,7 +120,6 @@ function showStock(formData) {
   //Création de la variable content
   let contentStock = "";
   arrayStock.forEach(function (element) {
-    divTableauStock.innerHTML = contentStock;
     //Ajout à la variable content de mon élément
     // enteteTableau
     // contentStock.appendChild(enteteTableau);
@@ -129,7 +138,18 @@ function showStock(formData) {
     </tr></table>`;
   });
   divTableauStock.innerHTML = contentStock;
-  let deleteButtonTableauStock = document.querySelector(".deleteButton");
+  // let deleteButtonTableauStock = document.querySelector(".deleteButton");
+
+  let deleteBtn = document.querySelectorAll(".deleteButton");
+  console.log(deleteBtn);
+  deleteBtn.forEach(function (element, index) {
+    element.addEventListener("click", function () {
+      alert("click");
+      arrayStock.splice(index, 1);
+      localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+      showStock();
+    });
+  });
 }
 
 /* CLASSE BOISSON PROTOTYPE */
@@ -143,7 +163,7 @@ class Boisson {
     this.marge = marge;
   }
 }
-console.log("Boisson type");
+// console.log("Boisson type");
 
 // FONCTION CLASSE BOISSON SANS ALCOOL//
 class BoissonSansAlcool extends Boisson {
@@ -160,7 +180,7 @@ class BoissonSansAlcool extends Boisson {
     this.type = typeBoissonGet;
   }
 }
-console.log("Boisson sans alcool");
+// console.log("Boisson sans alcool");
 
 // FONCTION CLASSE BOISSON ALCOOLISEE//
 class BoissonAlcoolisée extends Boisson {
@@ -179,6 +199,6 @@ class BoissonAlcoolisée extends Boisson {
     this.degre = degreAlcool;
   }
 }
-console.log("Boisson alcoolisée");
+// console.log("Boisson alcoolisée");
 
 //GESTION DU BOUTON TYPE DE BOISSON. FAIRE APPARAITRE L'INPUT DEGRE D'ALCOOL SI INPUT ALCOOL CHOISI
