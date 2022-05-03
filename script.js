@@ -14,24 +14,14 @@ let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
 let divTableauStock = document.querySelector(".divTableauStock");
 
-/* RECUPERATION DU LOCAL STORAGE*/
 // DECLARATION DU TABLEAU DE STOCK
 let arrayStock;
-// Remise au format objet Javascript de mon local Storage
 
-// let localStorageparsed = JSON.parsed(localStorage.getItem("stock"))
-// if (!lsParsed) {
-//   arrayStock = [];
-// } else {
-//   let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
-//   arrayStock = lsParsed;
-//   // Lance la fonction affichage du stock
-//   showStock();
-// }
-
+/* RECUPERATION DU LOCAL STORAGE*/
 if (!localStorage.getItem("@stocks")) {
   arrayStock = [];
 } else {
+  // Remise au format objet Javascript de mon local Storage
   let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
   arrayStock = lsParsed;
   showStock();
@@ -70,13 +60,13 @@ formulaire.addEventListener("submit", function (e) {
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
-  let quantiteGet = formData.get("quantite").value;
+  let quantiteGet = formData.get("quantite");
   let prixAchatHtGet = formData.get("prixAchatHt");
   let prixVenteHtGet = formData.get("prixVenteHt");
   let margeGet = formData.get("marge");
   let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
-  let degreeAlcoolGet = formData.get("degreeAlcool");
+  let degreeAlcoolGet = formData.get("degreAlcool");
   console.log(quantiteGet);
   console.log(typeBoissonGet);
 
@@ -126,7 +116,8 @@ function showStock(formData) {
     contentStock += `<table>
     <tr>
     <td>${element.nom}</td>
-    <td>${element.quantite}</td>
+        <td>${element.quantite}</td>
+    <td><input type="number"  /></td>
     <td>${element.prixAchatHt}</td>
     <td>${element.prixVenteHt}</td>
     <td>${element.prixVenteTtc}</td>
@@ -148,7 +139,6 @@ function showStock(formData) {
       arrayStock.splice(index, 1);
       localStorage.setItem("@stocks", JSON.stringify(arrayStock));
       showStock();
-      // console.log("@stocks");
     });
   });
 }
