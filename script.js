@@ -67,8 +67,6 @@ formulaire.addEventListener("submit", function (e) {
   let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
   let degreeAlcoolGet = formData.get("degreAlcool");
-  console.log(quantiteGet);
-  console.log(typeBoissonGet);
 
   //CREATION DE L'OBJET BOISSON
   let boisson;
@@ -116,8 +114,7 @@ function showStock(formData) {
     contentStock += `<table>
     <tr>
     <td>${element.nom}</td>
-        <td>${element.quantite}</td>
-    <td><input type="number"  /></td>
+    <td>${element.quantite}</td>
     <td>${element.prixAchatHt}</td>
     <td>${element.prixVenteHt}</td>
     <td>${element.prixVenteTtc}</td>
