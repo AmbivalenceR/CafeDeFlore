@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- TITRE-->
+    <h1>CAFE DE FLORE PARIS</h1>
+    <!-- FORMULAIRE -->
+    <form action="" id="formulaire">
+      <input
+        class="InputNomBoisson"
+        name="nomBoisson"
+        placeholder="Nom de la boisson"
+      />
+      <input
+        type="number"
+        min="0"
+        max="10"
+        placeholder="Quantité"
+        class="inputQuantite"
+        name="quantite"
+      />
+      <input
+        type="text"
+        placeholder="Prix d'achat HT"
+        class="inputPrixAchatHt"
+        name="prixAchatHt"
+      />
+      <input
+        type="text"
+        placeholder="Prix de vente HT"
+        class="inputPrixVenteHt"
+        name="prixVenteHt"
+      />
+      <input
+        type="text"
+        placeholder="Marge HT"
+        class="inputMarge"
+        name="marge"
+        id="marge"
+      />
+      <input
+        type="text"
+        placeholder="Prix de vente TTC"
+        class="inputFormulaire"
+        name="prixVenteTtc"
+      />
+      <select
+        id=""
+        placeholder="Type de boisson"
+        class="inputTypeBoisson"
+        name="typeBoisson"
+      >
+        <option value="">-- Type de boisson --</option>
+        <option value="Boisson sans alcool">Boisson sans alcool</option>
+        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+        <option value="Autre">Autre</option>
+      </select>
+      <input
+        type="text"
+        placeholder="Degré d'alcool"
+        class="inputDegre"
+        name="degreeAlcool"
+        style="display: none"
+      />
+      <input type="submit" value="AJOUTER" class="inputFormulaireSubmit" />
+    </form>
+
+    <!-- TABLEAU STOCK -->
+    <div class="divTableauStock">
+      <table>
+        <!-- <tr class="enteteTableau">
+          <th>Nom</th>
+          <th>Prix d'achat HT</th>
+          <th>Prix de vente HT</th>
+          <th>Prix de vente TTC</th>
+          <th>Marge</th>
+          <th>Type</th>
+          <th>Dégré d'alcool</th>
+        </tr>
+      </table> -->
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

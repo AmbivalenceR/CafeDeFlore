@@ -1,0 +1,63 @@
+body {
+  background-image: url("/cafedeflore.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  justify-content: center;
+  color: white;
+  background: linear-gradient(#0f3a29e0, #308464e0);
+  text-align: center;
+  font-size: 42px;
+  padding: 20px;
+  margin: -8px -8px;
+}
+
+/* STYLE FORMULAIRE */
+form {
+  margin: 20px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+form select,
+input {
+  margin: 5px;
+  padding: 5px 10px;
+  color: grey;
+  border: 2px solid white;
+  min-width: 70px;
+  max-width: 170px;
+}
+
+#formulaire .inputFormulaireSubmit {
+  color: white;
+  background: #308464e0;
+  border: 2px solid white;
+  font-weight: bold;
+}
+
+/* TABLEAU STOCK */
+table {
+  display: flex;
+  justify-content: center;
+}
+
+td,
+td button {
+  background-color: white;
+  color: grey;
+  text-align: center;
+  border: none;
+}
+
+th {
+  background-color: grey;
+  color: white;
+  text-align: center;
+  border: none;
+  padding: 2px 2px;
+}
