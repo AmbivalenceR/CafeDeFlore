@@ -128,7 +128,7 @@ function showStock(formData) {
     <td colspan="1"><input class="modifQuantite inputStock" type="number" min="0" max="10" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
     <td colspan="1"><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
-    <td colspan="1"></td>
+    <td colspan="1" id="marge"></td>
     <td colspan="1"</td>
     <td colspan="1"><button class="deleteButton">Supprimer</button></td>
     <td colspan="1"><button class="modifBtn">Enr. Modif</button></td>
