@@ -29,7 +29,7 @@ if (!localStorage.getItem("@stocks")) {
 
 /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
 inputTypeBoisson.addEventListener("change", function () {
-  if (inputTypeBoisson.value == "Boisson alcoolisée") {
+  if (inputTypeBoisson.value == "BoissonAlcoolisée") {
     inputDegre.style.display = "";
   } else {
     inputDegre.style.display = "none";
