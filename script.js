@@ -2,13 +2,14 @@
 // RECUPERATION DES ELEMENTS INPUTS
 let formulaire = document.querySelector("#formulaire");
 let InputNomBoisson = document.querySelector(".inputNomBoisson");
+let inputTypeBoisson = document.querySelector(".inputTypeBoisson");
+let inputDegre = document.querySelector(".inputDegre");
 let inputtQuantite = document.querySelector(".inputQuantite");
 let inputPrixAchatHt = document.querySelector(".inputPrixAchatHt");
 let inputPrixVenteHt = document.querySelector(".inputPrixVenteHt");
 let inputMarge = document.querySelector(".inputMarge");
 let inputPrixVenteTtc = document.querySelector(".inputPrixVenteTtc");
-let inputTypeBoisson = document.querySelector(".inputTypeBoisson");
-let inputDegre = document.querySelector(".inputDegre");
+
 let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
@@ -73,7 +74,7 @@ formulaire.addEventListener("submit", function (e) {
   if (typeBoissonGet == "boissonSansAlcool") {
     // Calcul TTC Sans Alcool TVA 5.5%
 
-    let ttcSansAlcool = Number(prixVenteHtGet) * 1.055;
+    let ttcSansAlcool = Math.round(Number(prixVenteHtGet) * 1.055 * 100) / 100;
     boisson = new BoissonSansAlcool(
       nomBoissonGet,
       quantiteGet,
@@ -85,7 +86,7 @@ formulaire.addEventListener("submit", function (e) {
     );
   } else {
     // Calcul TTC Alcool TVA 10%
-    let ttcAlcool = Number(prixVenteHtGet) * 1.1;
+    let ttcAlcool = Math.round(Number(prixVenteHtGet) * 1.1 * 100) / 100;
     console.log(ttcAlcool);
     boisson = new BoissonAlcoolisée(
       nomBoissonGet,
@@ -98,6 +99,7 @@ formulaire.addEventListener("submit", function (e) {
       degreeAlcoolGet
     );
   }
+  console.log(boisson);
 
   //ENVOI DE L'OBJET CONTACT DANS LE TABLEAU AVEC LA METHODE PUSH
   arrayStock.push(boisson);
@@ -189,6 +191,7 @@ function showStock(formData) {
   }
 
   let modifNom = document.querySelectorAll(".modifNom");
+
   modifNom.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -225,26 +228,16 @@ function showStock(formData) {
 
   modifQuantite.forEach(function (element, index) {
     element.addEventListener("change", function (e) {
-      if (element.value <= 5) {
-        element.fontWeight = "bold";
+      if (element.value < 5) {
+        element.fontWeight = "bolder";
         element.style.color = "red";
+        alert(`Vous devriez penser à passer commande!`);
       } else {
-        element.fontWeight = "bold";
+        element.fontWeight = "bolder";
         element.style.color = "green";
       }
     });
   });
-
-  //MODIFICATION COULEUR EN FONCTION DU NIVEAU DE STOCK
-  // let newModifQuantite = document.querySelectorAll(".modifQuantite");
-  // if (modifQuantite.value <= 5) {
-  //   newModifQuantite.style.backgroundColor = "red";
-  //   newModifQuantite.style.color = "red";
-  //   alert(`Vous devriez penser à commander des ${element.nom}!`);
-  // } else {
-  //   newModifQuantite.style.backgroundColor = "green";
-  //   newModifQuantite.style.color = "green";
-  // }
 
   let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
 
@@ -301,6 +294,7 @@ function showStock(formData) {
   // });
 
   let modifType = document.querySelectorAll(".modifType");
+
 
   modifType.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
@@ -359,10 +353,10 @@ class BoissonSansAlcool extends Boisson {
     prixVenteHt,
     prixVenteTtc,
     marge,
-    typeBoissonGet
+    type
   ) {
     super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
-    this.type = typeBoissonGet;
+    this.type = type;
   }
 }
 // console.log("Boisson sans alcool");
@@ -376,11 +370,11 @@ class BoissonAlcoolisée extends Boisson {
     prixVenteHt,
     prixVenteTtc,
     marge,
-    typeBoissonGet,
+    type,
     degreAlcool
   ) {
     super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
-    this.type = typeBoissonGet;
+    this.type = type;
     this.degre = degreAlcool;
   }
 }
