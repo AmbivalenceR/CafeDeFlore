@@ -55,6 +55,7 @@ function calculMarge() {
 formulaire.addEventListener("submit", function (e) {
   // annulation du rechargement de la page
   e.preventDefault();
+
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
@@ -79,7 +80,8 @@ formulaire.addEventListener("submit", function (e) {
       prixAchatHtGet,
       prixVenteHtGet,
       ttcSansAlcool,
-      margeHt
+      margeHt,
+      typeBoissonGet
     );
   } else {
     // Calcul TTC Alcool TVA 10%
@@ -92,6 +94,7 @@ formulaire.addEventListener("submit", function (e) {
       prixVenteHtGet,
       ttcAlcool,
       margeHt,
+      typeBoissonGet,
       degreeAlcoolGet
     );
   }
@@ -104,6 +107,7 @@ formulaire.addEventListener("submit", function (e) {
   formulaire.reset();
   // APPEL DE LA FONCTION showBoisson
   showStock(formData);
+  console.log(boisson);
 });
 
 function showStock(formData) {
@@ -118,12 +122,12 @@ function showStock(formData) {
     <tr>
     <td colspan="1"><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
     <td colspan="1"><input class="modifType inputStock" type="text" value="${element.type}"/></td>
-    <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
+    <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degre}"/></td>
     <td colspan="1"><input class="modifQuantite inputStock" type="number" min="0" max="10" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
     <td colspan="1"><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
-    <td colspan="1"></td>
-    <td colspan="1"</td>
+    <td colspan="1"><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>
+    <td colspan="1"><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
     <td colspan="1"><button class="deleteButton">Supprimer</button></td>
     <td colspan="1"><button class="modifBtn">Enr. Modif</button></td>
     <td colspan="1"><button class="QRcode">QR Code</button></td>
@@ -143,6 +147,8 @@ function showStock(formData) {
       showStock();
     });
   });
+
+  enrModifBtn();
 
   function enrModifBtn() {
     let modifNom = document.querySelectorAll(".modifNom");
@@ -169,12 +175,16 @@ function showStock(formData) {
         modifPrixVenteHT.forEach(function (element, index) {
           arrayStock[index].prixVenteHt = element.value;
         });
+        modifType.forEach(function (element, index) {
+          arrayStock[index].type = element.value;
+        });
+        modifDegre.forEach(function (element, index) {
+          arrayStock[index].degre = element.value;
+        });
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
       });
     });
   }
-
-  enrModifBtn();
 
   let modifNom = document.querySelectorAll(".modifNom");
   modifNom.forEach(function (element, index) {
