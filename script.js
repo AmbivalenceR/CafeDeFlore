@@ -68,26 +68,34 @@ formulaire.addEventListener("submit", function (e) {
   let typeBoissonGet = formData.get("typeBoisson");
   let degreeAlcoolGet = formData.get("degreAlcool");
 
+  // Calcul Marge HT
+  let margeHt = Number(prixVenteHtGet) - Number(prixAchatHtGet);
+
   //CREATION DE L'OBJET BOISSON
   let boisson;
-  if (typeBoissonGet == "BoissonSansAlcool") {
-    contact = new BoissonSansAlcool(
+  if (typeBoissonGet == "boissonSansAlcool") {
+    // Calcul TTC Sans Alcool TVA 5.5%
+
+    let ttcSansAlcool = Number(prixVenteHtGet) * 1.055;
+    boisson = new BoissonSansAlcool(
       nomBoissonGet,
       quantiteGet,
       prixAchatHtGet,
       prixVenteHtGet,
-      margeGet,
-      prixVenteTtcGet
-      // typeBoissonGet
+      ttcSansAlcool,
+      margeHt
     );
   } else {
+    // Calcul TTC Alcool TVA 10%
+    let ttcAlcool = Number(prixVenteHtGet) * 1.1;
+    console.log(ttcAlcool);
     boisson = new BoissonAlcoolisée(
       nomBoissonGet,
       quantiteGet,
       prixAchatHtGet,
       prixVenteHtGet,
-      margeGet,
-      prixVenteTtcGet,
+      ttcAlcool,
+      margeHt,
       degreeAlcoolGet
     );
   }
@@ -119,7 +127,7 @@ function showStock(formData) {
     <td colspan="1"><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
     <td colspan="1"><input class="modifType inputStock" type="text" value="${element.type}"/></td>
     <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
-    <td colspan="1"><input class="modifQuantite inputStock" type="number" value="${element.quantite}"/></td>
+    <td colspan="1"><input class="modifQuantite inputStock" type="number" min="0" max="10" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
     <td colspan="1"><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
     <td colspan="1"><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>

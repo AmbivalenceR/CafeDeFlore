@@ -91,16 +91,17 @@ th {
   border: none;
   background-color: none !important;
   padding: 0;
+  text-align: center;
 }
 
 td {
   border: 1px solid grey;
+  text-align: center;
 }
 
 table button {
   background-color: white;
   color: grey;
-  border: 1px solid grey;
   padding: 10px;
 }
 
