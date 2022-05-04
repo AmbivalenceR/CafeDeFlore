@@ -120,13 +120,13 @@ function showStock(formData) {
     let tdDegreAlcool = document.createElement("td");
 
     tdNom.innerHTML = element.nom;
+    tdType.innerHTML = element.typeBoisson;
+    tdDegreAlcool.innerHTML = element.degre;
     tdQuantite.innerHTML = element.quantite;
     tdPrixAchatHt.innerHTML = element.prixAchatHt;
     tdPrixVenteHt.innerHTML = element.prixVenteHt;
     tdMarge.innerHTML = element.prixVenteTtc;
     tdprixVenteTtc.innerHTML = element.marge;
-    tdType.innerHTML = element.typeBoisson;
-    tdDegreAlcool.innerHTML = element.degreAlcool;
 
     tr.appendChild(tdNom);
     tr.appendChild(tdQuantite);

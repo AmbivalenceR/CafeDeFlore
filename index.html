@@ -17,6 +17,24 @@
         name="nomBoisson"
         placeholder="Nom de la boisson"
       />
+      <select
+        id=""
+        placeholder="Type de boisson"
+        class="inputTypeBoisson"
+        name="typeBoisson"
+      >
+        <option value="">-- Type de boisson --</option>
+        <option value="Boisson sans alcool">Boisson sans alcool</option>
+        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+        <option value="Autre">Autre</option>
+      </select>
+      <input
+        type="text"
+        placeholder="Degré d'alcool"
+        class="inputDegre"
+        name="degreAlcool"
+        style="display: none"
+      />
       <input
         type="number"
         min="0"
@@ -43,31 +61,16 @@
         class="inputMarge"
         name="marge"
         id="marge"
+        disabled
       />
       <input
         type="text"
         placeholder="Prix de vente TTC"
         class="inputFormulaire"
         name="prixVenteTtc"
+        disabled
       />
-      <select
-        id=""
-        placeholder="Type de boisson"
-        class="inputTypeBoisson"
-        name="typeBoisson"
-      >
-        <option value="">-- Type de boisson --</option>
-        <option value="Boisson sans alcool">Boisson sans alcool</option>
-        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
-        <option value="Autre">Autre</option>
-      </select>
-      <input
-        type="text"
-        placeholder="Degré d'alcool"
-        class="inputDegre"
-        name="degreAlcool"
-        style="display: none"
-      />
+
       <input type="submit" value="AJOUTER" class="inputFormulaireSubmit" />
     </form>
 
@@ -77,13 +80,13 @@
         <thead>
           <tr class="headTableauStock">
             <th>Nom</th>
+            <th>Type</th>
+            <th>Degré d'alcool</th>
             <th>Quantité</th>
             <th>Prix d'achat HT</th>
             <th>Prix de vente HT</th>
             <th>Marge</th>
             <th>Prix de vente TTC</th>
-            <th>Type</th>
-            <th>Degré d'alcool</th>
             <th>Action</th>
           </tr>
         </thead>
