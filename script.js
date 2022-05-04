@@ -56,14 +56,13 @@ function calculMarge() {
 formulaire.addEventListener("submit", function (e) {
   // annulation du rechargement de la page
   e.preventDefault();
+
   // récupération des données du formulaire
   let formData = new FormData(formulaire);
   let nomBoissonGet = formData.get("nomBoisson");
   let quantiteGet = formData.get("quantite");
   let prixAchatHtGet = formData.get("prixAchatHt");
   let prixVenteHtGet = formData.get("prixVenteHt");
-  let margeGet = formData.get("marge");
-  let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
   let degreeAlcoolGet = formData.get("degreAlcool");
 
@@ -110,6 +109,7 @@ formulaire.addEventListener("submit", function (e) {
   formulaire.reset();
   // APPEL DE LA FONCTION showBoisson
   showStock(formData);
+  console.log(boisson);
 });
 
 // arrayStock[index].nomDeLaValeur = NewValeurInput
@@ -120,7 +120,7 @@ function showStock(formData) {
   //Création de la variable content
   let contentStock = "";
   arrayStock.forEach(function (element) {
-    divTableauStock.innerHTML = contentStock;
+    console.log(element);
     //Ajout à la variable content de mon élément
     // enteteTableau
     // contentStock.appendChild(enteteTableau);
@@ -135,7 +135,8 @@ function showStock(formData) {
     <td colspan="1"><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>
     <td colspan="1"><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
     <td colspan="1"><button class="deleteButton">Supprimer</button></td>
-    <td colspan="1"><button class="modifButton">QR Code</button></td>
+    <td colspan="1"><button class="modifBtn">Enr. Modif</button></td>
+    <td colspan="1"><button class="QRcode">QR Code</button></td>
     </tr>`;
   });
   divTableauStock.innerHTML = contentStock;
@@ -151,8 +152,46 @@ function showStock(formData) {
     });
   });
 
+  enrModifBtn();
+
+  function enrModifBtn() {
+    let modifNom = document.querySelectorAll(".modifNom");
+    let modifQuantite = document.querySelectorAll(".modifQuantite");
+    let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+    let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
+    let modifType = document.querySelectorAll(".modifType");
+    let modifDegre = document.querySelectorAll(".modifDegre");
+    let btnEnrModif = document.querySelectorAll(".modifBtn");
+
+    console.log(btnEnrModif);
+    btnEnrModif.forEach(function (element, index) {
+      element.addEventListener("click", function () {
+        alert("cc");
+        modifNom.forEach(function (element, index) {
+          arrayStock[index].nom = element.value;
+        });
+        modifQuantite.forEach(function (element, index) {
+          arrayStock[index].quantite = element.value;
+        });
+        modifPrixAchatHT.forEach(function (element, index) {
+          arrayStock[index].prixAchatHt = element.value;
+        });
+        modifPrixVenteHT.forEach(function (element, index) {
+          arrayStock[index].prixVenteHt = element.value;
+        });
+        modifType.forEach(function (element, index) {
+          arrayStock[index].type = element.value;
+        });
+        modifDegre.forEach(function (element, index) {
+          arrayStock[index].degre = element.value;
+        });
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+      });
+    });
+  }
+
   let modifNom = document.querySelectorAll(".modifNom");
-  // console.log(modifNom);
+
   modifNom.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -170,7 +209,7 @@ function showStock(formData) {
   });
 
   let modifQuantite = document.querySelectorAll(".modifQuantite");
-  // console.log(modifQuantite);
+
   modifQuantite.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -201,7 +240,7 @@ function showStock(formData) {
   });
 
   let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
-  // console.log(modifPrixAchatHT);
+
   modifPrixAchatHT.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -219,7 +258,7 @@ function showStock(formData) {
   });
 
   let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
-  // console.log(modifPrixVenteHT);
+
   modifPrixVenteHT.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -236,26 +275,27 @@ function showStock(formData) {
     });
   });
 
-  let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
+  // let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
   // console.log(modifPrixVenteTTC);
-  modifPrixVenteTTC.forEach(function (element, index) {
-    element.addEventListener("keydown", function (e) {
-      if (e.key == "Enter") {
-        console.log(element.value);
-        arrayStock[index].prixVenteTtc = element.value;
-        let indexE = arrayStock[index.element];
-        console.log(indexE + " element modifié du tableau");
-        console.log(arrayStock);
-        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-        showStock();
-      } else {
-        false;
-      }
-    });
-  });
+  // modifPrixVenteTTC.forEach(function (element, index) {
+  //   element.addEventListener("keydown", function (e) {
+  //     if (e.key == "Enter") {
+  //       console.log(element.value);
+  //       arrayStock[index].prixVenteTtc = element.value;
+  //       let indexE = arrayStock[index.element];
+  //       console.log(indexE + " element modifié du tableau");
+  //       console.log(arrayStock);
+  //       localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+  //       showStock();
+  //     } else {
+  //       false;
+  //     }
+  //   });
+  // });
 
   let modifType = document.querySelectorAll(".modifType");
-  // console.log(modifType);
+
+
   modifType.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -273,7 +313,7 @@ function showStock(formData) {
   });
 
   let modifDegre = document.querySelectorAll(".modifDegre");
-  // console.log(modifDegre);
+
   modifDegre.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
