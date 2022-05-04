@@ -63,8 +63,6 @@ formulaire.addEventListener("submit", function (e) {
   let quantiteGet = formData.get("quantite");
   let prixAchatHtGet = formData.get("prixAchatHt");
   let prixVenteHtGet = formData.get("prixVenteHt");
-  let margeGet = formData.get("marge");
-  let prixVenteTtcGet = formData.get("prixVenteTtc");
   let typeBoissonGet = formData.get("typeBoisson");
   let degreeAlcoolGet = formData.get("degreAlcool");
 
@@ -130,10 +128,11 @@ function showStock(formData) {
     <td colspan="1"><input class="modifQuantite inputStock" type="number" min="0" max="10" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
     <td colspan="1"><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
-    <td colspan="1"><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>
-    <td colspan="1"><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
+    <td colspan="1"></td>
+    <td colspan="1"</td>
     <td colspan="1"><button class="deleteButton">Supprimer</button></td>
-    <td colspan="1"><button class="modifButton">QR Code</button></td>
+    <td colspan="1"><button class="modifBtn">Enr. Modif</button></td>
+    <td colspan="1"><button class="QRcode">QR Code</button></td>
     </tr>`;
   });
   divTableauStock.innerHTML = contentStock;
@@ -148,8 +147,39 @@ function showStock(formData) {
     });
   });
 
+  function enrModifBtn() {
+    let modifNom = document.querySelectorAll(".modifNom");
+    let modifQuantite = document.querySelectorAll(".modifQuantite");
+    let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+    let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
+    let modifType = document.querySelectorAll(".modifType");
+    let modifDegre = document.querySelectorAll(".modifDegre");
+    let btnEnrModif = document.querySelectorAll(".modifBtn");
+
+    console.log(btnEnrModif);
+    btnEnrModif.forEach(function (element, index) {
+      element.addEventListener("click", function () {
+        alert("cc");
+        modifNom.forEach(function (element, index) {
+          arrayStock[index].nom = element.value;
+        });
+        modifQuantite.forEach(function (element, index) {
+          arrayStock[index].quantite = element.value;
+        });
+        modifPrixAchatHT.forEach(function (element, index) {
+          arrayStock[index].prixAchatHt = element.value;
+        });
+        modifPrixVenteHT.forEach(function (element, index) {
+          arrayStock[index].prixVenteHt = element.value;
+        });
+        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+      });
+    });
+  }
+
+  enrModifBtn();
+
   let modifNom = document.querySelectorAll(".modifNom");
-  console.log(modifNom);
   modifNom.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -167,7 +197,7 @@ function showStock(formData) {
   });
 
   let modifQuantite = document.querySelectorAll(".modifQuantite");
-  console.log(modifQuantite);
+
   modifQuantite.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -185,7 +215,7 @@ function showStock(formData) {
   });
 
   let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
-  console.log(modifPrixAchatHT);
+
   modifPrixAchatHT.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -203,7 +233,7 @@ function showStock(formData) {
   });
 
   let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
-  console.log(modifPrixVenteHT);
+
   modifPrixVenteHT.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -220,26 +250,26 @@ function showStock(formData) {
     });
   });
 
-  let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
-  console.log(modifPrixVenteTTC);
-  modifPrixVenteTTC.forEach(function (element, index) {
-    element.addEventListener("keydown", function (e) {
-      if (e.key == "Enter") {
-        console.log(element.value);
-        arrayStock[index].prixVenteTtc = element.value;
-        let indexE = arrayStock[index.element];
-        console.log(indexE + " element modifié du tableau");
-        console.log(arrayStock);
-        localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-        showStock();
-      } else {
-        false;
-      }
-    });
-  });
+  // let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
+  // console.log(modifPrixVenteTTC);
+  // modifPrixVenteTTC.forEach(function (element, index) {
+  //   element.addEventListener("keydown", function (e) {
+  //     if (e.key == "Enter") {
+  //       console.log(element.value);
+  //       arrayStock[index].prixVenteTtc = element.value;
+  //       let indexE = arrayStock[index.element];
+  //       console.log(indexE + " element modifié du tableau");
+  //       console.log(arrayStock);
+  //       localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+  //       showStock();
+  //     } else {
+  //       false;
+  //     }
+  //   });
+  // });
 
   let modifType = document.querySelectorAll(".modifType");
-  console.log(modifType);
+
   modifType.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -257,7 +287,7 @@ function showStock(formData) {
   });
 
   let modifDegre = document.querySelectorAll(".modifDegre");
-  console.log(modifDegre);
+
   modifDegre.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
