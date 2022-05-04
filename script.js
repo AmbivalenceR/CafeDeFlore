@@ -65,14 +65,13 @@ formulaire.addEventListener("submit", function (e) {
   let typeBoissonGet = formData.get("typeBoisson");
   let degreeAlcoolGet = formData.get("degreAlcool");
 
-  // Calcul Marge HT
+  // Calcul automatique de la Marge HT //
   let margeHt = Number(prixVenteHtGet) - Number(prixAchatHtGet);
 
-  //CREATION DE L'OBJET BOISSON
+  //CREATION DE L'OBJET BOISSON //
   let boisson;
-  if (typeBoissonGet == "boissonSansAlcool") {
-    // Calcul TTC Sans Alcool TVA 5.5%
-
+  if (typeBoissonGet == "BoissonSansAlcool") {
+    // Calcul Auto du Prix de vente TTC  Boisson Sans Alcool TVA 5.5% //
     let ttcSansAlcool = Number(prixVenteHtGet) * 1.055;
     boisson = new BoissonSansAlcool(
       nomBoissonGet,
@@ -84,9 +83,8 @@ formulaire.addEventListener("submit", function (e) {
       typeBoissonGet
     );
   } else {
-    // Calcul TTC Alcool TVA 10%
+    // Calcul Auto du Prix de vente TTC Boisson Alcoolisée TVA 10% //
     let ttcAlcool = Number(prixVenteHtGet) * 1.1;
-    console.log(ttcAlcool);
     boisson = new BoissonAlcoolisée(
       nomBoissonGet,
       quantiteGet,
@@ -159,6 +157,9 @@ function showStock(formData) {
     let modifDegre = document.querySelectorAll(".modifDegre");
     let btnEnrModif = document.querySelectorAll(".modifBtn");
 
+    let modifMarge = document.querySelectorAll(".modifMarge");
+    let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
+
     console.log(btnEnrModif);
     btnEnrModif.forEach(function (element, index) {
       element.addEventListener("click", function () {
@@ -181,6 +182,7 @@ function showStock(formData) {
         modifDegre.forEach(function (element, index) {
           arrayStock[index].degre = element.value;
         });
+
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
       });
     });
@@ -251,6 +253,8 @@ function showStock(formData) {
       if (e.key == "Enter") {
         console.log(element.value);
         arrayStock[index].prixAchatHt = element.value;
+        // A la modification du prix d'achat HT, la MARGE se recalcule //
+        arrayStock[index].marge = arrayStock[index].prixVenteHt - arrayStock[index].prixAchatHt;
         let indexE = arrayStock[index.element];
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
@@ -269,6 +273,21 @@ function showStock(formData) {
       if (e.key == "Enter") {
         console.log(element.value);
         arrayStock[index].prixVenteHt = element.value;
+        // A la modification du prix de vente HT, la MARGE se recalcule //
+        arrayStock[index].marge = arrayStock[index].prixVenteHt - arrayStock[index].prixAchatHt;
+        // A la modification du prix de vente HT, le PRIX VENTE TTC se recalcule //
+                // Si Boisson Alcoolisée, une TVA de 10% s'applique //
+              if (arrayStock[index].type == "BoissonAlcoolisée") {
+                arrayStock[index].prixVenteTtc = arrayStock[index].prixVenteHt * 1.1;
+               console.log("BA")
+              }
+                // Si Boisson Sans Alcool, une TVA de 5.5% s'applique //
+              else if (arrayStock[index].type == "BoissonSansAlcool") {
+                arrayStock[index].prixVenteTtc = arrayStock[index].prixVenteHt * 1.055;
+              console.log("BSA")
+              }
+               // Sinon RIEN //
+              else {  console.log("Bye")}
         let indexE = arrayStock[index.element];
         console.log(indexE + " element modifié du tableau");
         console.log(arrayStock);
@@ -279,6 +298,8 @@ function showStock(formData) {
       }
     });
   });
+
+ 
 
   // let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
   // console.log(modifPrixVenteTTC);
