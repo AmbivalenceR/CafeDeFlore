@@ -12,11 +12,14 @@
     <h1>CAFE DE FLORE PARIS</h1>
     <!-- FORMULAIRE -->
     <form action="" id="formulaire">
+      <!-- NOM BOISSON -->
       <input
         class="inputNomBoisson"
         name="nomBoisson"
         placeholder="Nom de la boisson"
       />
+
+      <!-- QUANTITE -->
       <input
         type="number"
         min="0"
@@ -25,18 +28,24 @@
         class="inputQuantite"
         name="quantite"
       />
+
+      <!-- PRIX ACHAT HT -->
       <input
         type="text"
         placeholder="Prix d'achat HT"
         class="inputPrixAchatHt"
         name="prixAchatHt"
       />
+
+      <!-- PRIX VENTE HT -->
       <input
         type="text"
         placeholder="Prix de vente HT"
         class="inputPrixVenteHt"
         name="prixVenteHt"
       />
+
+      <!-- MARGE HT -->
       <input
         type="text"
         placeholder="Marge HT"
@@ -44,12 +53,16 @@
         name="marge"
         id="marge"
       />
+
+      <!-- PRIX VENTE TTC -->
       <input
         type="text"
         placeholder="Prix de vente TTC"
         class="inputPrixVenteTtc"
         name="prixVenteTtc"
       />
+
+      <!-- TYPE BOISSON -->
       <select
         id=""
         placeholder="Type de boisson"
@@ -61,29 +74,38 @@
         <option value="BoissonAlcoolisée">Boisson alcoolisée</option>
         <option value="Autre">Autre</option>
       </select>
+
+      <!-- DEGRE -->
       <input
         type="text"
         placeholder="Degré d'alcool"
         class="inputDegre"
-        name="degreeAlcool"
+        name="degreAlcool"
         style="display: none"
       />
+
+      <!-- AJOUTER -->
       <input type="submit" value="AJOUTER" class="inputFormulaireSubmit" />
     </form>
 
     <!-- TABLEAU STOCK -->
-    <div class="divTableauStock">
+    <div class="container">
       <table>
-        <!-- <tr class="enteteTableau">
-          <th>Nom</th>
-          <th>Prix d'achat HT</th>
-          <th>Prix de vente HT</th>
-          <th>Prix de vente TTC</th>
-          <th>Marge</th>
-          <th>Type</th>
-          <th>Dégré d'alcool</th>
-        </tr>
-      </table> -->
+        <thead>
+          <tr class="enteteTableau">
+            <th colspan="1">Nom</th>
+            <th colspan="1">Quantité</th>
+            <th colspan="1">Prix d'achat HT</th>
+            <th colspan="1">Prix de vente HT</th>
+            <th colspan="1">Prix de vente TTC</th>
+            <th colspan="1">Marge</th>
+            <th colspan="1">Type</th>
+            <th colspan="1">Dégré d'alcool</th>
+            <th colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divTableauStock"></tbody>
+      </table>
     </div>
 
     <script src="script.js"></script>

@@ -28,7 +28,7 @@ input {
   margin: 5px;
   padding: 5px 10px;
   color: grey;
-  border: 2px solid white;
+  border: 2px solid grey;
   min-width: 70px;
   max-width: 170px;
 }
@@ -40,8 +40,7 @@ input {
   font-weight: bold;
 }
 
-/* TABLEAU STOCK */
-table {
+.container {
   display: flex;
   justify-content: center;
 }
@@ -60,4 +59,11 @@ th {
   text-align: center;
   border: none;
   padding: 2px 2px;
+}
+
+.inputStock {
+  width: 80%;
+  border: none;
+  background-color: none !important;
+  padding: 0;
 }
