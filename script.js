@@ -20,12 +20,6 @@ function principaleFlore() {
   /* RECUPERATION DU LOCAL STORAGE*/
   if (!localStorage.getItem("@stocks")) {
     arrayStock = [];
-  } else {
-    // Remise au format objet Javascript de mon local Storage
-    let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
-    arrayStock = lsParsed;
-    showStock();
-  }
 
   /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
   inputTypeBoisson.addEventListener("change", function () {
@@ -126,6 +120,18 @@ function principaleFlore() {
               QRcode
             </button></td>
     </tr>`;
+      
+  });
+  divTableauStock.innerHTML = contentStock;
+
+  // let deleteButtonTableauStock = document.querySelector(".deleteButton");
+
+  let deleteBtn = document.querySelectorAll(".deleteButton");
+  deleteBtn.forEach(function (element, index) {
+    element.addEventListener("click", function () {
+      arrayStock.splice(index, 1);
+      localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+      showStock();
     });
 
     // affichage du tableau dans la divTableauStock
@@ -197,6 +203,7 @@ function principaleFlore() {
         });
       });
 
+
       let modifQuantite = document.querySelectorAll(".modifQuantite");
 
       modifQuantite.forEach(function (element, index) {
@@ -210,6 +217,22 @@ function principaleFlore() {
           }
         });
       });
+
+
+  modifQuantite.forEach(function (element, index) {
+    element.addEventListener("change", function (e) {
+      if (element.value < 5) {
+        element.fontWeight = "bolder";
+        element.style.color = "red";
+        alert(`Vous devriez penser à passer commande!`);
+      } else {
+        element.fontWeight = "bolder";
+        element.style.color = "green";
+      }
+    });
+  });
+
+  let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
 
       let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
 
@@ -252,6 +275,7 @@ function principaleFlore() {
           }
         });
       });
+
 
       let modifDegre = document.querySelectorAll(".modifDegre");
 
@@ -348,6 +372,7 @@ function principaleFlore() {
       this.type = typeBoissonGet;
       this.degre = degreAlcool;
     }
+
   }
 }
 
