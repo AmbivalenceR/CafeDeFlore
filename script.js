@@ -20,6 +20,12 @@ function principaleFlore() {
   /* RECUPERATION DU LOCAL STORAGE*/
   if (!localStorage.getItem("@stocks")) {
     arrayStock = [];
+  } else {
+    // Remise au format objet Javascript de mon local Storage
+    let lsParsed = JSON.parse(localStorage.getItem("@stocks"));
+    arrayStock = lsParsed;
+    showStock();
+  }
 
   /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
   inputTypeBoisson.addEventListener("change", function () {
@@ -120,24 +126,11 @@ function principaleFlore() {
               QRcode
             </button></td>
     </tr>`;
-      
-  });
-  divTableauStock.innerHTML = contentStock;
-
-  // let deleteButtonTableauStock = document.querySelector(".deleteButton");
-
-  let deleteBtn = document.querySelectorAll(".deleteButton");
-  deleteBtn.forEach(function (element, index) {
-    element.addEventListener("click", function () {
-      arrayStock.splice(index, 1);
-      localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-      showStock();
     });
-
-    // affichage du tableau dans la divTableauStock
     divTableauStock.innerHTML = contentStock;
 
-    // Fonctionnalité du bouton Supprimer
+    // let deleteButtonTableauStock = document.querySelector(".deleteButton");
+
     let deleteBtn = document.querySelectorAll(".deleteButton");
     deleteBtn.forEach(function (element, index) {
       element.addEventListener("click", function () {
@@ -145,172 +138,175 @@ function principaleFlore() {
         localStorage.setItem("@stocks", JSON.stringify(arrayStock));
         showStock();
       });
-    }); // Fin arrayStock.forEach // Fin arrayStock.forEach
 
-    // Appel de la fonction pour afficher le QR code au click du bouton "QRcode"
-    affichageQRcode();
+      // affichage du tableau dans la divTableauStock
+      divTableauStock.innerHTML = contentStock;
 
-    // Appel de la fonction pour enregistrer les modifications apportées via le bouton
-    enregistrerModifBtn();
-    // Appel de la fonction pour enregistrer les modifications apportées via les input
-    modificationInputDirect();
-
-    function enregistrerModifBtn() {
-      let modifNom = document.querySelectorAll(".modifNom");
-      let modifQuantite = document.querySelectorAll(".modifQuantite");
-      let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
-      let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
-      let modifType = document.querySelectorAll(".modifType");
-      let modifDegre = document.querySelectorAll(".modifDegre");
-      let btnEnrModif = document.querySelectorAll(".modifBtn");
-
-      btnEnrModif.forEach(function (element, index) {
+      // Fonctionnalité du bouton Supprimer
+      let deleteBtn = document.querySelectorAll(".deleteButton");
+      deleteBtn.forEach(function (element, index) {
         element.addEventListener("click", function () {
-          alert("cc");
-          modifNom.forEach(function (element, index) {
-            arrayStock[index].nom = element.value;
-          });
-          modifQuantite.forEach(function (element, index) {
-            arrayStock[index].quantite = element.value;
-          });
-          modifPrixAchatHT.forEach(function (element, index) {
-            arrayStock[index].prixAchatHt = element.value;
-          });
-          modifPrixVenteHT.forEach(function (element, index) {
-            arrayStock[index].prixVenteHt = element.value;
-          });
-          modifType.forEach(function (element, index) {
-            arrayStock[index].type = element.value;
-          });
-          modifDegre.forEach(function (element, index) {
-            arrayStock[index].degre = element.value;
-          });
+          arrayStock.splice(index, 1);
           localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+          showStock();
         });
-      });
-    }
-    function modificationInputDirect() {
-      let modifNom = document.querySelectorAll(".modifNom");
-      modifNom.forEach(function (element, index) {
-        element.addEventListener("keydown", function (e) {
-          if (e.key == "Enter") {
-            arrayStock[index].nom = element.value;
+      }); // Fin arrayStock.forEach // Fin arrayStock.forEach
+
+      // Appel de la fonction pour afficher le QR code au click du bouton "QRcode"
+      affichageQRcode();
+
+      // Appel de la fonction pour enregistrer les modifications apportées via le bouton
+      enregistrerModifBtn();
+      // Appel de la fonction pour enregistrer les modifications apportées via les input
+      modificationInputDirect();
+
+      function enregistrerModifBtn() {
+        let modifNom = document.querySelectorAll(".modifNom");
+        let modifQuantite = document.querySelectorAll(".modifQuantite");
+        let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+        let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
+        let modifType = document.querySelectorAll(".modifType");
+        let modifDegre = document.querySelectorAll(".modifDegre");
+        let btnEnrModif = document.querySelectorAll(".modifBtn");
+
+        btnEnrModif.forEach(function (element, index) {
+          element.addEventListener("click", function () {
+            alert("cc");
+            modifNom.forEach(function (element, index) {
+              arrayStock[index].nom = element.value;
+            });
+            modifQuantite.forEach(function (element, index) {
+              arrayStock[index].quantite = element.value;
+            });
+            modifPrixAchatHT.forEach(function (element, index) {
+              arrayStock[index].prixAchatHt = element.value;
+            });
+            modifPrixVenteHT.forEach(function (element, index) {
+              arrayStock[index].prixVenteHt = element.value;
+            });
+            modifType.forEach(function (element, index) {
+              arrayStock[index].type = element.value;
+            });
+            modifDegre.forEach(function (element, index) {
+              arrayStock[index].degre = element.value;
+            });
             localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-            showStock();
-          } else {
-            false;
-          }
+          });
         });
-      });
-
-
-      let modifQuantite = document.querySelectorAll(".modifQuantite");
-
-      modifQuantite.forEach(function (element, index) {
-        element.addEventListener("keydown", function (e) {
-          if (e.key == "Enter") {
-            arrayStock[index].quantite = element.value;
-            localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-            showStock();
-          } else {
-            false;
-          }
-        });
-      });
-
-
-  modifQuantite.forEach(function (element, index) {
-    element.addEventListener("change", function (e) {
-      if (element.value < 5) {
-        element.fontWeight = "bolder";
-        element.style.color = "red";
-        alert(`Vous devriez penser à passer commande!`);
-      } else {
-        element.fontWeight = "bolder";
-        element.style.color = "green";
       }
-    });
-  });
+      function modificationInputDirect() {
+        let modifNom = document.querySelectorAll(".modifNom");
+        modifNom.forEach(function (element, index) {
+          element.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+              arrayStock[index].nom = element.value;
+              localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+              showStock();
+            } else {
+              false;
+            }
+          });
+        });
 
-  let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+        let modifQuantite = document.querySelectorAll(".modifQuantite");
+        modifQuantite.forEach(function (element, index) {
+          element.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+              arrayStock[index].quantite = element.value;
+              localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+              showStock();
+            } else {
+              false;
+            }
+          });
+        });
 
-      let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+        modifQuantite.forEach(function (element, index) {
+          element.addEventListener("change", function (e) {
+            if (element.value < 5) {
+              element.fontWeight = "bolder";
+              element.style.color = "red";
+              alert(`Vous devriez penser à passer commande!`);
+            } else {
+              element.fontWeight = "bolder";
+              element.style.color = "green";
+            }
+          });
+        });
 
-      modifPrixAchatHT.forEach(function (element, index) {
-        element.addEventListener("keydown", function (e) {
-          if (e.key == "Enter") {
-            arrayStock[index].prixAchatHt = element.value;
-            localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-            showStock();
-          } else {
-            false;
+        let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
+
+        modifPrixAchatHT.forEach(function (element, index) {
+          element.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+              arrayStock[index].prixAchatHt = element.value;
+              localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+              showStock();
+            } else {
+              false;
+            }
+          });
+        });
+
+        let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
+        modifPrixVenteHT.forEach(function (element, index) {
+          element.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+              arrayStock[index].prixVenteHt = element.value;
+              localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+              showStock();
+            } else {
+              false;
+            }
+          });
+        });
+
+        let modifType = document.querySelectorAll(".modifType");
+        modifType.forEach(function (element, index) {
+          element.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+              arrayStock[index].type = element.value;
+              localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+              showStock();
+            } else {
+              false;
+            }
+          });
+        });
+
+        let modifDegre = document.querySelectorAll(".modifDegre");
+        modifDegre.forEach(function (element, index) {
+          element.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+              arrayStock[index].degre = element.value;
+              localStorage.setItem("@stocks", JSON.stringify(arrayStock));
+              showStock();
+            } else {
+              false;
+            }
+          });
+        });
+      }
+    }); // Fin function showStock // Fin function showStock
+
+    //GESTION DU BOUTON TYPE DE BOISSON. FAIRE APPARAITRE L'INPUT DEGRE D'ALCOOL SI INPUT ALCOOL CHOISI
+
+    // QRcode //
+    function affichageQRcode() {
+      // EVENT POUR FERMER L'AFFICHAGE DU QR CODE
+      let buttonQRcode = document.querySelectorAll(".QRcode");
+      buttonQRcode.forEach(function (element, index) {
+        element.addEventListener("click", function () {
+          let divQRcode = document.querySelector(".container-fluid");
+          divQRcode.setAttribute("style", "display: block;");
+          let btnX = document.querySelector(".btnXforQRcode");
+          btnX.addEventListener("click", function () {
+            divQRcode.style.display = "none";
+          });
+          function htmlEncode(value) {
+            return $("<div/>").text(value).html();
           }
-        });
-      });
-
-      let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
-
-      modifPrixVenteHT.forEach(function (element, index) {
-        element.addEventListener("keydown", function (e) {
-          if (e.key == "Enter") {
-            arrayStock[index].prixVenteHt = element.value;
-            localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-            showStock();
-          } else {
-            false;
-          }
-        });
-      });
-
-      let modifType = document.querySelectorAll(".modifType");
-
-      modifType.forEach(function (element, index) {
-        element.addEventListener("keydown", function (e) {
-          if (e.key == "Enter") {
-            arrayStock[index].type = element.value;
-            localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-            showStock();
-          } else {
-            false;
-          }
-        });
-      });
-
-
-      let modifDegre = document.querySelectorAll(".modifDegre");
-
-      modifDegre.forEach(function (element, index) {
-        element.addEventListener("keydown", function (e) {
-          if (e.key == "Enter") {
-            arrayStock[index].degre = element.value;
-            localStorage.setItem("@stocks", JSON.stringify(arrayStock));
-            showStock();
-          } else {
-            false;
-          }
-        });
-      });
-    }
-  } // Fin function showStock // Fin function showStock
-
-  //GESTION DU BOUTON TYPE DE BOISSON. FAIRE APPARAITRE L'INPUT DEGRE D'ALCOOL SI INPUT ALCOOL CHOISI
-
-  // QRcode //
-  function affichageQRcode() {
-    // EVENT POUR FERMER L'AFFICHAGE DU QR CODE
-    let buttonQRcode = document.querySelectorAll(".QRcode");
-    buttonQRcode.forEach(function (element, index) {
-      element.addEventListener("click", function () {
-        let divQRcode = document.querySelector(".container-fluid");
-        divQRcode.setAttribute("style", "display: block;");
-        let btnX = document.querySelector(".btnXforQRcode");
-        btnX.addEventListener("click", function () {
-          divQRcode.style.display = "none";
-        });
-        function htmlEncode(value) {
-          return $("<div/>").text(value).html();
-        }
-        let contentQRcode = `
+          let contentQRcode = `
 
     ${arrayStock[index].nom}
     Type de boisson : ${arrayStock[index].type}
@@ -318,61 +314,68 @@ function principaleFlore() {
     Quantité restante : ${arrayStock[index].quantite}
     Prix de vente : ${arrayStock[index].prixVenteTtc} €
     `;
-        $(".qr-code").attr(
-          "src",
-          "https://chart.googleapis.com/chart?cht=qr&chl=" +
-            htmlEncode(contentQRcode) +
-            "&chs=160x160&chld=L|0"
-        );
+          $(".qr-code").attr(
+            "src",
+            "https://chart.googleapis.com/chart?cht=qr&chl=" +
+              htmlEncode(contentQRcode) +
+              "&chs=160x160&chld=L|0"
+          );
+        });
       });
-    });
-  }
-
-  /* CLASSE BOISSON PROTOTYPE */
-  class Boisson {
-    constructor(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge) {
-      this.nom = nom;
-      this.quantite = quantite;
-      this.prixAchatHt = prixAchatHt;
-      this.prixVenteHt = prixVenteHt;
-      this.prixVenteTtc = prixVenteTtc;
-      this.marge = marge;
-    }
-  }
-
-  // FONCTION CLASSE BOISSON SANS ALCOOL//
-  class BoissonSansAlcool extends Boisson {
-    constructor(
-      nom,
-      quantite,
-      prixAchatHt,
-      prixVenteHt,
-      prixVenteTtc,
-      marge,
-      typeBoissonGet
-    ) {
-      super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
-      this.type = typeBoissonGet;
-    }
-  }
-
-  // FONCTION CLASSE BOISSON ALCOOLISEE//
-  class BoissonAlcoolisée extends Boisson {
-    constructor(
-      nom,
-      quantite,
-      prixAchatHt,
-      prixVenteHt,
-      prixVenteTtc,
-      marge,
-      typeBoissonGet,
-      degreAlcool
-    ) {
-      super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
-      this.type = typeBoissonGet;
-      this.degre = degreAlcool;
     }
 
+    /* CLASSE BOISSON PROTOTYPE */
+    class Boisson {
+      constructor(
+        nom,
+        quantite,
+        prixAchatHt,
+        prixVenteHt,
+        prixVenteTtc,
+        marge
+      ) {
+        this.nom = nom;
+        this.quantite = quantite;
+        this.prixAchatHt = prixAchatHt;
+        this.prixVenteHt = prixVenteHt;
+        this.prixVenteTtc = prixVenteTtc;
+        this.marge = marge;
+      }
+    }
+
+    // FONCTION CLASSE BOISSON SANS ALCOOL//
+    class BoissonSansAlcool extends Boisson {
+      constructor(
+        nom,
+        quantite,
+        prixAchatHt,
+        prixVenteHt,
+        prixVenteTtc,
+        marge,
+        typeBoissonGet
+      ) {
+        super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
+        this.type = typeBoissonGet;
+      }
+    }
+
+    // FONCTION CLASSE BOISSON ALCOOLISEE//
+    class BoissonAlcoolisée extends Boisson {
+      constructor(
+        nom,
+        quantite,
+        prixAchatHt,
+        prixVenteHt,
+        prixVenteTtc,
+        marge,
+        typeBoissonGet,
+        degreAlcool
+      ) {
+        super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
+        this.type = typeBoissonGet;
+        this.degre = degreAlcool;
+      }
+    }
   }
 }
 
