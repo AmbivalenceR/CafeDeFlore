@@ -29,7 +29,7 @@ if (!localStorage.getItem("@stocks")) {
 
 /* DECLENCHEMENT DE L'EVENT CHANGE SUR TYPE DE BOISSON */
 inputTypeBoisson.addEventListener("change", function () {
-  if (inputTypeBoisson.value == "Boisson alcoolisée") {
+  if (inputTypeBoisson.value == "BoissonAlcoolisée") {
     inputDegre.style.display = "";
   } else {
     inputDegre.style.display = "none";
@@ -50,8 +50,6 @@ function calculMarge() {
     document.getElementById("marge").value = inputMarge;
   }
 }
-
-/* DECLENCHEMENT DU CALCUL PRIX DE VENTE TTC SELON LE TYPE DE BOISSON CHOISI */
 
 /* DECLENCHEMENT DE L'EVENT AU SUBMIT */
 formulaire.addEventListener("submit", function (e) {
@@ -136,6 +134,7 @@ function showStock(formData) {
     </tr>`;
   });
   divTableauStock.innerHTML = contentStock;
+
   // let deleteButtonTableauStock = document.querySelector(".deleteButton");
 
   let deleteBtn = document.querySelectorAll(".deleteButton");
@@ -213,6 +212,29 @@ function showStock(formData) {
       }
     });
   });
+
+  modifQuantite.forEach(function (element, index) {
+    element.addEventListener("change", function (e) {
+      if (element.value <= 5) {
+        element.fontWeight = "bold";
+        element.style.color = "red";
+      } else {
+        element.fontWeight = "bold";
+        element.style.color = "green";
+      }
+    });
+  });
+
+  //MODIFICATION COULEUR EN FONCTION DU NIVEAU DE STOCK
+  // let newModifQuantite = document.querySelectorAll(".modifQuantite");
+  // if (modifQuantite.value <= 5) {
+  //   newModifQuantite.style.backgroundColor = "red";
+  //   newModifQuantite.style.color = "red";
+  //   alert(`Vous devriez penser à commander des ${element.nom}!`);
+  // } else {
+  //   newModifQuantite.style.backgroundColor = "green";
+  //   newModifQuantite.style.color = "green";
+  // }
 
   let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
 
