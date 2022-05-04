@@ -117,13 +117,13 @@ function showStock(formData) {
     contentStock += `
     <tr>
     <td colspan="1"><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
+    <td colspan="1"><input class="modifType inputStock" type="text" value="${element.type}"/></td>
+    <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
     <td colspan="1"><input class="modifQuantite inputStock" type="number" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
     <td colspan="1"><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
-    <td colspan="1"><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
     <td colspan="1"><input class="modifMarge inputStock" type="text" value="${element.marge}"/></td>
-    <td colspan="1"><input class="modifType inputStock" type="text" value="${element.type}"/></td>
-    <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
+    <td colspan="1"><input class="modifPrixVenteTTC inputStock" type="text" value="${element.prixVenteTtc}"/></td>
     <td colspan="1"><button class="deleteButton">Supprimer</button></td>
     <td colspan="1"><button class="modifButton">QR Code</button></td>
     </tr>`;

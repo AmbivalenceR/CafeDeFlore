@@ -18,8 +18,24 @@
         name="nomBoisson"
         placeholder="Nom de la boisson"
       />
-
-      <!-- QUANTITE -->
+      <select
+        id=""
+        placeholder="Type de boisson"
+        class="inputTypeBoisson"
+        name="typeBoisson"
+      >
+        <option value="">-- Type de boisson --</option>
+        <option value="Boisson sans alcool">Boisson sans alcool</option>
+        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
+        <option value="Autre">Autre</option>
+      </select>
+      <input
+        type="text"
+        placeholder="Degré d'alcool"
+        class="inputDegre"
+        name="degreAlcool"
+        style="display: none"
+      />
       <input
         type="number"
         min="0"
@@ -52,6 +68,7 @@
         class="inputMarge"
         name="marge"
         id="marge"
+        disabled
       />
 
       <!-- PRIX VENTE TTC -->
@@ -60,31 +77,9 @@
         placeholder="Prix de vente TTC"
         class="inputPrixVenteTtc"
         name="prixVenteTtc"
+        disabled
       />
 
-      <!-- TYPE BOISSON -->
-      <select
-        id=""
-        placeholder="Type de boisson"
-        class="inputTypeBoisson"
-        name="typeBoisson"
-      >
-        <option value="">-- Type de boisson --</option>
-        <option value="Boisson sans alcool">Boisson sans alcool</option>
-        <option value="Boisson alcoolisée">Boisson alcoolisée</option>
-        <option value="Autre">Autre</option>
-      </select>
-
-      <!-- DEGRE -->
-      <input
-        type="text"
-        placeholder="Degré d'alcool"
-        class="inputDegre"
-        name="degreAlcool"
-        style="display: none"
-      />
-
-      <!-- AJOUTER -->
       <input type="submit" value="AJOUTER" class="inputFormulaireSubmit" />
     </form>
 
@@ -94,13 +89,14 @@
         <thead>
           <tr class="enteteTableau">
             <th colspan="1">Nom</th>
+            <th colspan="1">Type</th>
+            <th colspan="1">Degré d'alcool</th>
             <th colspan="1">Quantité</th>
             <th colspan="1">Prix d'achat HT</th>
             <th colspan="1">Prix de vente HT</th>
-            <th colspan="1">Prix de vente TTC</th>
             <th colspan="1">Marge</th>
-            <th colspan="1">Type</th>
-            <th colspan="1">Dégré d'alcool</th>
+            <th colspan="1">Prix de vente TTC</th>
+
             <th colspan="2">Action</th>
           </tr>
         </thead>
