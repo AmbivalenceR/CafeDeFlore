@@ -2,13 +2,14 @@
 // RECUPERATION DES ELEMENTS INPUTS
 let formulaire = document.querySelector("#formulaire");
 let InputNomBoisson = document.querySelector(".inputNomBoisson");
+let inputTypeBoisson = document.querySelector(".inputTypeBoisson");
+let inputDegre = document.querySelector(".inputDegre");
 let inputtQuantite = document.querySelector(".inputQuantite");
 let inputPrixAchatHt = document.querySelector(".inputPrixAchatHt");
 let inputPrixVenteHt = document.querySelector(".inputPrixVenteHt");
 let inputMarge = document.querySelector(".inputMarge");
 let inputPrixVenteTtc = document.querySelector(".inputPrixVenteTtc");
-let inputTypeBoisson = document.querySelector(".inputTypeBoisson");
-let inputDegre = document.querySelector(".inputDegre");
+
 let inputFormulaireSubmit = document.querySelector(".inputFormulaireSubmit");
 
 /* CREATION DE L'EMPLACEMENT DES DONNEES DU TABLEAU STOCK*/
@@ -74,18 +75,19 @@ formulaire.addEventListener("submit", function (e) {
   if (typeBoissonGet == "boissonSansAlcool") {
     // Calcul TTC Sans Alcool TVA 5.5%
 
-    let ttcSansAlcool = Number(prixVenteHtGet) * 1.055;
+    let ttcSansAlcool = Math.round(Number(prixVenteHtGet) * 1.055 * 100) / 100;
     boisson = new BoissonSansAlcool(
       nomBoissonGet,
       quantiteGet,
       prixAchatHtGet,
       prixVenteHtGet,
       ttcSansAlcool,
-      margeHt
+      margeHt,
+      typeBoissonGet
     );
   } else {
     // Calcul TTC Alcool TVA 10%
-    let ttcAlcool = Number(prixVenteHtGet) * 1.1;
+    let ttcAlcool = Math.round(Number(prixVenteHtGet) * 1.1 * 100) / 100;
     console.log(ttcAlcool);
     boisson = new BoissonAlcoolisée(
       nomBoissonGet,
@@ -94,9 +96,11 @@ formulaire.addEventListener("submit", function (e) {
       prixVenteHtGet,
       ttcAlcool,
       margeHt,
+      typeBoissonGet,
       degreeAlcoolGet
     );
   }
+  console.log(boisson);
 
   //ENVOI DE L'OBJET CONTACT DANS LE TABLEAU AVEC LA METHODE PUSH
   arrayStock.push(boisson);
@@ -124,7 +128,7 @@ function showStock(formData) {
     <tr>
     <td colspan="1"><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
     <td colspan="1"><input class="modifType inputStock" type="text" value="${element.type}"/></td>
-    <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degreAlcool}"/></td>
+    <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degre}"/></td>
     <td colspan="1"><input class="modifQuantite inputStock" type="number" min="0" max="10" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
     <td colspan="1"><input class="modifPrixVenteHT inputStock" type="text" value="${element.prixVenteHt}"/></td>
@@ -148,7 +152,7 @@ function showStock(formData) {
   });
 
   let modifNom = document.querySelectorAll(".modifNom");
-  console.log(modifNom);
+  // console.log(modifNom);
   modifNom.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -166,7 +170,7 @@ function showStock(formData) {
   });
 
   let modifQuantite = document.querySelectorAll(".modifQuantite");
-  console.log(modifQuantite);
+  // console.log(modifQuantite);
   modifQuantite.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -185,29 +189,19 @@ function showStock(formData) {
 
   modifQuantite.forEach(function (element, index) {
     element.addEventListener("change", function (e) {
-      if (element.value <= 5) {
-        element.fontWeight = "bold";
+      if (element.value < 5) {
+        element.fontWeight = "bolder";
         element.style.color = "red";
+        alert(`Vous devriez penser à passer commande!`);
       } else {
-        element.fontWeight = "bold";
+        element.fontWeight = "bolder";
         element.style.color = "green";
       }
     });
   });
 
-  //MODIFICATION COULEUR EN FONCTION DU NIVEAU DE STOCK
-  // let newModifQuantite = document.querySelectorAll(".modifQuantite");
-  // if (modifQuantite.value <= 5) {
-  //   newModifQuantite.style.backgroundColor = "red";
-  //   newModifQuantite.style.color = "red";
-  //   alert(`Vous devriez penser à commander des ${element.nom}!`);
-  // } else {
-  //   newModifQuantite.style.backgroundColor = "green";
-  //   newModifQuantite.style.color = "green";
-  // }
-
   let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
-  console.log(modifPrixAchatHT);
+  // console.log(modifPrixAchatHT);
   modifPrixAchatHT.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -225,7 +219,7 @@ function showStock(formData) {
   });
 
   let modifPrixVenteHT = document.querySelectorAll(".modifPrixVenteHT");
-  console.log(modifPrixVenteHT);
+  // console.log(modifPrixVenteHT);
   modifPrixVenteHT.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -243,7 +237,7 @@ function showStock(formData) {
   });
 
   let modifPrixVenteTTC = document.querySelectorAll(".modifPrixVenteTTC");
-  console.log(modifPrixVenteTTC);
+  // console.log(modifPrixVenteTTC);
   modifPrixVenteTTC.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -261,7 +255,7 @@ function showStock(formData) {
   });
 
   let modifType = document.querySelectorAll(".modifType");
-  console.log(modifType);
+  // console.log(modifType);
   modifType.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -279,7 +273,7 @@ function showStock(formData) {
   });
 
   let modifDegre = document.querySelectorAll(".modifDegre");
-  console.log(modifDegre);
+  // console.log(modifDegre);
   modifDegre.forEach(function (element, index) {
     element.addEventListener("keydown", function (e) {
       if (e.key == "Enter") {
@@ -319,10 +313,10 @@ class BoissonSansAlcool extends Boisson {
     prixVenteHt,
     prixVenteTtc,
     marge,
-    typeBoissonGet
+    type
   ) {
     super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
-    this.type = typeBoissonGet;
+    this.type = type;
   }
 }
 // console.log("Boisson sans alcool");
@@ -336,11 +330,11 @@ class BoissonAlcoolisée extends Boisson {
     prixVenteHt,
     prixVenteTtc,
     marge,
-    typeBoissonGet,
+    type,
     degreAlcool
   ) {
     super(nom, quantite, prixAchatHt, prixVenteHt, prixVenteTtc, marge);
-    this.type = typeBoissonGet;
+    this.type = type;
     this.degre = degreAlcool;
   }
 }
