@@ -1,5 +1,5 @@
 function principaleFlore() {
-  // RECUPERATION DES ELEMENTS INPUTS
+  // RECUPERATION DES ELEMENTS INPUTS //
   let formulaire = document.querySelector("#formulaire");
   let InputNomBoisson = document.querySelector(".inputNomBoisson");
   let inputtQuantite = document.querySelector(".inputQuantite");
