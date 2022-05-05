@@ -211,6 +211,19 @@ function principaleFlore() {
         });
       });
 
+      modifQuantite.forEach(function (element, index) {
+        element.addEventListener("change", function (e) {
+          if (element.value < 5) {
+            element.fontWeight = "bolder";
+            element.style.color = "red";
+            alert(`Vous devriez penser à passer commande!`);
+          } else {
+            element.fontWeight = "bolder";
+            element.style.color = "green";
+          }
+        });
+      });
+
       let modifPrixAchatHT = document.querySelectorAll(".modifPrixAchatHT");
 
       modifPrixAchatHT.forEach(function (element, index) {
