@@ -160,7 +160,6 @@ function principaleFlore() {
 
       btnEnrModif.forEach(function (element, index) {
         element.addEventListener("click", function () {
-          alert("cc");
           modifNom.forEach(function (element, index) {
             arrayStock[index].nom = element.value;
           });
