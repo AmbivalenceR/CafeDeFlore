@@ -31,6 +31,7 @@ function principaleFlore() {
   inputTypeBoisson.addEventListener("change", function () {
     if (inputTypeBoisson.value == "BoissonAlcoolisée") {
       inputDegre.style.display = "";
+      inputDegre.value = "";
     } else {
       inputDegre.style.display = "none";
     }
