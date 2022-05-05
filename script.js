@@ -114,7 +114,10 @@ function principaleFlore() {
       contentStock += `
     <tr id="content">
     <td colspan="1"><input class="modifNom inputStock" type="text" value="${element.nom}"/></td>
-    <td colspan="1"><input class="modifType inputStock" type="text" value="${element.type}"/></td>
+    <td colspan="1"><select class="modifType inputStock" value="${element.type}"><option value="BoissonSansAlcool">Boisson sans alcool</option>
+        <option value="BoissonAlcoolisée">Boisson Alcoolisée</option>
+        <option value="Autre">Autre</option>
+      </select></td>
     <td colspan="1"><input class="modifDegre inputStock" type="text" value="${element.degre}"/></td>
     <td colspan="1"><input class="modifQuantite inputStock" type="number" min="0" max="10" value="${element.quantite}"/></td>
     <td colspan="1"><input class="modifPrixAchatHT inputStock" type="text" value="${element.prixAchatHt}"/></td>
