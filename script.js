@@ -216,7 +216,14 @@ function principaleFlore() {
       modifPrixAchatHT.forEach(function (element, index) {
         element.addEventListener("keydown", function (e) {
           if (e.key == "Enter") {
+            console.log(element.value);
             arrayStock[index].prixAchatHt = element.value;
+            // A la modification du prix d'achat HT, la MARGE se recalcule //
+            arrayStock[index].marge =
+              arrayStock[index].prixVenteHt - arrayStock[index].prixAchatHt;
+            let indexE = arrayStock[index.element];
+            console.log(indexE + " element modifié du tableau");
+            console.log(arrayStock);
             localStorage.setItem("@stocks", JSON.stringify(arrayStock));
             showStock();
           } else {
@@ -230,7 +237,31 @@ function principaleFlore() {
       modifPrixVenteHT.forEach(function (element, index) {
         element.addEventListener("keydown", function (e) {
           if (e.key == "Enter") {
+            console.log(element.value);
             arrayStock[index].prixVenteHt = element.value;
+            // A la modification du prix de vente HT, la MARGE se recalcule //
+            arrayStock[index].marge =
+              arrayStock[index].prixVenteHt - arrayStock[index].prixAchatHt;
+            // A la modification du prix de vente HT, le PRIX VENTE TTC se recalcule //
+            // Si Boisson Alcoolisée, une TVA de 10% s'applique //
+            if (arrayStock[index].type == "BoissonAlcoolisée") {
+              arrayStock[index].prixVenteTtc =
+                arrayStock[index].prixVenteHt * 1.1;
+              console.log("BA");
+            }
+            // Si Boisson Sans Alcool, une TVA de 5.5% s'applique //
+            else if (arrayStock[index].type == "BoissonSansAlcool") {
+              arrayStock[index].prixVenteTtc =
+                arrayStock[index].prixVenteHt * 1.055;
+              console.log("BSA");
+            }
+            // Sinon RIEN //
+            else {
+              console.log("Bye");
+            }
+            let indexE = arrayStock[index.element];
+            console.log(indexE + " element modifié du tableau");
+            console.log(arrayStock);
             localStorage.setItem("@stocks", JSON.stringify(arrayStock));
             showStock();
           } else {
