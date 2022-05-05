@@ -29,7 +29,7 @@ Vous devrez utiliser des classes ou des prototypes pour la création des produit
 
 5. L'interface doit être claire, simple d'utilisation et doit inclure idéalement un code couleur pour alerter du niveau de stock.
 
-## CODE COULEUR FAIT > À METTRE DANS LA BRANCHE MAIN
+## CODE COULEUR FAIT À LA MODIFICATION DE LA QUANTITÉ DU PRODUIT
 
 BONUS: Générer un QRCode pour chaque produit contenant sa référence.
 
